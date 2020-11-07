@@ -1,4 +1,4 @@
-insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (1, 'HumfriedScarman', 'JmPF7cu', 'hscarman0@howstuffworks.com', '586 Hanover Terrace', '1785184243', '10/19/2020', 1);
+insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (1, 'minseok', 'JmPF7cu', 'hscarman0@howstuffworks.com', '586 Hanover Terrace', '1785184243', '10/19/2020', 1);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (2, 'Natal Frome', 'PilIixVcrm', 'nfrome1@ustream.tv', '1237 Artisan Park', '8461482514', '11/18/2019', 2);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (3, 'Stavro Durman', 'oa9aVxrMv', 'sdurman2@imgur.com', '09 Linden Alley', '8346138244', '1/8/2020', 3);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (4, 'Desiree Downer', '6VYN6yV', 'ddowner3@histats.com', '8037 Helena Plaza', '7557615959', '1/21/2020', 4);
