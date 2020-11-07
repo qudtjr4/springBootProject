@@ -9,11 +9,11 @@
 <meta charset="ISO-8859-1">
 <title>MOSS</title>
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/static/css/bootstrap.min.css" />"
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
-<script src="<c:url value="/static/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/static/js/bootstrap.min.js" />"></script>
-<link href="<c:url value="/static/css/main.css" />" rel="stylesheet">
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">

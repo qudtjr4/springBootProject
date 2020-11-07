@@ -14,10 +14,10 @@
 
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/static/css/bootstrap.min.css" />"
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
-<script src="<c:url value="/static/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/static/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 
 
 <style>
@@ -37,7 +37,7 @@
 }
 </style>
 <!-- Custom styles for this template -->
-<link href="<c:url value="/static/css/signin.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
 </head>
 <body class="text-center">
 
@@ -45,7 +45,7 @@
 		action="${pageContext.request.contextPath}/login/findPassword"
 		method="POST">
 
-		<img class="mb-4" src="<c:url value="/static/img/logo.jpg" />" alt=""
+		<img class="mb-4" src="<c:url value="/resources/img/logo.jpg" />" alt=""
 			width="72" height="72">
 		<h1 class="h1 mb-3 font-weight-normal">Find Password <br></h1>
 		<p class="mb-3 font-weight-normal">Please Enter Username and Password</p>

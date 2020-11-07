@@ -14,10 +14,10 @@
 
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/static/css/bootstrap.min.css" />"
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
-<script src="<c:url value="/static/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/static/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 
 
 <style>
@@ -37,12 +37,12 @@
 }
 </style>
 <!-- Custom styles for this template -->
-<link href="<c:url value="/static/css/signin.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
 </head>
 <body class="text-center">
 	<form:form class="form-signin" action="${pageContext.request.contextPath}/login/register" 
 	method="POST" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")' modelAttribute="user">
-		<img class="mb-4" src="<c:url value="/static/img/logo.jpg" />" alt=""
+		<img class="mb-4" src="<c:url value="/resources/img/logo.jpg" />" alt=""
 			width="72" height="72">
 			<c:if test="${user.username != null}">
 				<h1 class="h3 mb-3 font-weight-normal">Edit Profile</h1>
