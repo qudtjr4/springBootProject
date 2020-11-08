@@ -1,6 +1,6 @@
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (1, 'minseok', 'JmPF7cu', 'hscarman0@howstuffworks.com', '586 Hanover Terrace', '1785184243', '10/19/2020', 1);
-insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (2, 'Natal Frome', 'PilIixVcrm', 'nfrome1@ustream.tv', '1237 Artisan Park', '8461482514', '11/18/2019', 2);
-insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (3, 'Stavro Durman', 'oa9aVxrMv', 'sdurman2@imgur.com', '09 Linden Alley', '8346138244', '1/8/2020', 3);
+insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (2, 'ryan', '123', 'nfrome1@ustream.tv', '1237 Artisan Park', '8461482514', '11/18/2019', 2);
+insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (3, 'test', '123', 'sdurman2@imgur.com', '09 Linden Alley', '8346138244', '1/8/2020', 1);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (4, 'Desiree Downer', '6VYN6yV', 'ddowner3@histats.com', '8037 Helena Plaza', '7557615959', '1/21/2020', 4);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (5, 'Harrietta Guly', 't667xE0DW', 'hguly4@reverbnation.com', '61 Melrose Park', '5286725822', '4/1/2020', 5);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (6, 'Hi Fasham', 'TNZaJiCu', 'hfasham5@time.com', '8 Sachs Junction', '5538950695', '6/11/2020', 6);
@@ -88,3 +88,17 @@ insert into users (id, username, password, email, address, phoneNum, dateOfBirth
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (88, 'Sib Mitchiner', 'n8ST4qWph69', 'smitchiner2f@yellowpages.com', '2 Express Center', '9693981565', '1/2/2020', 88);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (89, 'Morgen Prescot', 'PLFslORvwL', 'mprescot2g@loc.gov', '4 Duke Crossing', '5688752665', '2/19/2020', 89);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId) values (90, 'Persis Jensen', 'SM52mXv', 'pjensen2h@freewebs.com', '580 Fremont Lane', '3042149531', '12/26/2019', 90);
+
+
+--Insert courses
+INSERT INTO course(courseID, courseName, courseShortName, startDate, endDate) values('1', 'Software Engineering', 'CSIS 3275', '2020-05-04','2020-12-20');
+INSERT INTO course(courseID, courseName, courseShortName, startDate, endDate) values('2', 'Advanced Networking', 'CSIS 3270', '2020-05-05','2020-12-20');
+INSERT INTO course(courseID, courseName, courseShortName, startDate, endDate) values('3', 'Mobile App Development II', 'CSIS 4175', '2020-05-04','2020-12-20');
+INSERT INTO course(courseID, courseName, courseShortName, startDate, endDate) values('4', 'Spec Topics in Web/Mob App Dev', 'CSIS 4280', '2020-05-04','2020-12-20');
+
+
+--Insert Course_user
+INSERT INTO course_user(courseID, username) values(1, 'test');
+INSERT INTO course_user(courseID, username) values(2, 'test');
+INSERT INTO course_user(courseID, username) values(3, 'test');
+INSERT INTO course_user(courseID, username) values(4, 'test');
