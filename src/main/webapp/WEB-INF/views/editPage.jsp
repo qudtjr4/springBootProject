@@ -63,7 +63,7 @@
 			</div>
 
 			<ul class="list-unstyled components">
-				<li class="active"><a href="/">Edit Profile</a></li>
+				<li class="active"><a href="/">Home</a></li>
 				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
 				</li>
 				<li><a href="#pageSubmenu" data-toggle="collapse"
@@ -78,11 +78,8 @@
 			</ul>
 
 			<ul class="list-unstyled CTAs">
-				<li><a
-					href="https://bootstrapious.com/tutorial/files/sidebar.zip"
-					class="download">Download source</a></li>
-				<li><a href="https://bootstrapious.com/p/bootstrap-sidebar"
-					class="article">Back to article</a></li>
+		
+				<li><a href="${pageContext.request.contextPath}/logout" class="article">Log Out</a></li>
 			</ul>
 		</nav>
 
@@ -96,7 +93,7 @@
 						<i class="fas fa-align-left"></i>
 					</button>
 
-					<h2 class="col-10 mt-2">Home</h2>
+					<h2 class="col-10 mt-2">Edit Profile</h2>
 
 					<a href="${pageContext.request.contextPath}/addCourse"><i
 						type="button" class="fas fa-plus"></i> Add Course</a>
