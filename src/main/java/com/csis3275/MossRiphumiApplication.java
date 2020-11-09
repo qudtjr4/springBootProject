@@ -10,4 +10,5 @@ public class MossRiphumiApplication {
 		SpringApplication.run(MossRiphumiApplication.class, args);
 	}
 
+	
 }

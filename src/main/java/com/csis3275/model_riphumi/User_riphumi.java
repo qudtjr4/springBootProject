@@ -1,25 +1,23 @@
 package com.csis3275.model_riphumi;
 
+import java.sql.Date;
+
 public class User_riphumi {
 	private int id;
 	private String username;
 	private String password;
 	private String email;
 	private String address;
-	private long phoneNum;
-	private String dateOfBirth;
+	private String phoneNum;
+	private Date dateOfBirth;
 	private int typeId;
+	private boolean status;
 	
-	
-	
-	public User_riphumi() {
-		super();
-		this.password = "";
-		this.email = "";
-		this.address ="";
-		this.phoneNum =0;
-		this.dateOfBirth = "";
-		this.typeId = 0;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
@@ -33,13 +31,6 @@ public class User_riphumi {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -52,16 +43,16 @@ public class User_riphumi {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
-	public void setPhoneNum(long phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public int getTypeId() {
@@ -70,6 +61,17 @@ public class User_riphumi {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	
+	
+
+	
 		
 	
 }

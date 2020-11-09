@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csis3275.dao_riphumi.CourseDAOImpl;
 import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
 import com.csis3275.model_riphumi.Course;
+import com.csis3275.model_riphumi.LoginDTO;
 import com.csis3275.model_riphumi.User_riphumi;
 
 @Controller
@@ -29,7 +31,6 @@ public class MainController_mki_39 {
 	UserDAOImpl_riphumi userDaoImpl;
 	@Autowired
 	CourseDAOImpl courseDAOImpl;
-	User_riphumi currentUser; // this is temporal until we add session
 
 	@ModelAttribute("user")
 	public User_riphumi setupLoginForm() {
@@ -78,7 +79,6 @@ public class MainController_mki_39 {
 
 	@PostMapping("editProfile")
 	public String editUser(@ModelAttribute("user") User_riphumi editedUser, Model model) {
-		currentUser = editedUser;
 		if (userDaoImpl.updateUser(editedUser)) {
 			model.addAttribute("message", "Your user was updated!");
 		} else {
@@ -86,6 +86,27 @@ public class MainController_mki_39 {
 		}
 
 		return "redirect:/";
+	}
+	
+	@PostMapping("changePassword")
+	public String changePassword(@RequestParam("newPassword") String password,
+			@RequestParam("oldPassword") String oldPassword,
+			@RequestParam("username") String username,Model model) {
+		
+		LoginDTO check = new LoginDTO();
+		check.setUsername(username);
+		check.setPassword(oldPassword);
+		
+		if(userDaoImpl.login(check) != null) {
+			userDaoImpl.setPassword(password, username);
+			model.addAttribute("message", "Your password was changed!");
+			return "redirect:/login/logout";
+		}else {
+			model.addAttribute("message", "Your present password is not correct!");
+			return "redirect:/editProfile";
+		}
+
+		
 	}
 
 }

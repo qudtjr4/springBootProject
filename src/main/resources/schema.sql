@@ -7,15 +7,17 @@ DROP TABLE Course IF EXISTS;
 
 CREATE TABLE users
 (
-   id bigint auto_increment,
-  username VARCHAR NOT NULL,
-  password VARCHAR NOT NULL,
-  email VARCHAR NOT NULL,
-  address VARCHAR NOT NULL,
-  phoneNum bigint NOT NULL,
-  dateOfBirth VARCHAR NOT NULL,
-  typeId bigint NULL,
-  PRIMARY KEY (username)
+	id INT auto_increment,
+	username VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	address VARCHAR(50) NOT NULL,
+	phoneNum VARCHAR(50) NOT NULL,
+	dateOfBirth DATE NOT NULL,
+	typeId INT NOT NULL,
+	status VARCHAR(50) NOT NULL,
+	PRIMARY KEY (username)
+	
 );
 
 CREATE TABLE Course
