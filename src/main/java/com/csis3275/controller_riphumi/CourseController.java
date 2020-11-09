@@ -70,4 +70,10 @@ public class CourseController {
 			return "mainView";
 		}
 	}
+	
+	@GetMapping("course")
+	public String course(HttpSession session, Model model, HttpServletRequest request) {
+		
+		return "course/course";
+	}
 }

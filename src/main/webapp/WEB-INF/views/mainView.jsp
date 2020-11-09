@@ -16,7 +16,7 @@
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/main.css">
 
 <link rel="stylesheet" href="resources/css/calendar.css">
 
@@ -44,17 +44,16 @@
 
 			<ul class="list-unstyled components">
 				<li class="active"><a href="/">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
-				</li>
+				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a></li>
 				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Pages</a>
+					aria-expanded="false" class="dropdown-toggle">Announcements</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">Page 1</a></li>
 						<li><a href="#">Page 2</a></li>
 						<li><a href="#">Page 3</a></li>
 					</ul></li>
-				<li><a href="#">Portfoli</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="#">Grade</a></li>
+				<li><a href="#">Schedule</a></li>
 			</ul>
 
 			<ul class="list-unstyled CTAs">
@@ -84,21 +83,19 @@
 			<div class="row">
 				<c:if test="${ courses != null }">
 					<c:forEach var="course" items="${courses}">
-						<div class="col-sm-4 mb-3">
+						
+						<div class="col-3 mb-3">
+						<a href="${pageContext.request.contextPath}/course">
 							<div class="card">
-								<div class="image">
-									<img src="http://loremflickr.com/320/150?random=4" />
+								<div class="course-container">
+									<img class="img-fluid" src="resources/img/bookdrawing.png" alt="Course"/>
+									<div class="course-short-name">${course.courseShortName }</div>
+									<div class="course-name d-flex align-items-center">${course.courseName }</div>
 								</div>
-								<div class="card-inner">
-									<div class="header">
-										<h2>${course.courseShortName }- ${course.courseName }</h2>
-									</div>
-									<div class="content">
-										<p>Content area</p>
-									</div>
-								</div>
+								
 							</div>
 						</div>
+						</a>
 					</c:forEach>
 				</c:if>
 

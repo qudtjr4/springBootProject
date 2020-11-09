@@ -67,19 +67,20 @@
 				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
 				</li>
 				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Pages</a>
+					aria-expanded="false" class="dropdown-toggle">Announcements</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">Page 1</a></li>
 						<li><a href="#">Page 2</a></li>
 						<li><a href="#">Page 3</a></li>
 					</ul></li>
-				<li><a href="#">Portfoli</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="#">Grade</a></li>
+				<li><a href="#">Schedule</a></li>
 			</ul>
 
 			<ul class="list-unstyled CTAs">
-		
-				<li><a href="${pageContext.request.contextPath}/logout" class="article">Log Out</a></li>
+
+				<li><a href="${pageContext.request.contextPath}/logout"
+					class="article">Log Out</a></li>
 			</ul>
 		</nav>
 
@@ -94,9 +95,6 @@
 					</button>
 
 					<h2 class="col-10 mt-2">Edit Profile</h2>
-
-					<a href="${pageContext.request.contextPath}/addCourse"><i
-						type="button" class="fas fa-plus"></i> Add Course</a>
 
 				</div>
 			</nav>
@@ -148,7 +146,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
