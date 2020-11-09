@@ -21,8 +21,8 @@ public class UserDAOImpl_riphumi {
 	private final String SQL_FIND = "SELECT * FROM users WHERE id = ?";
 	private final String SQL_GET_USER = "SELECT * FROM users WHERE username = ? and password = ?";
 	private final String SQL_DELETE = "DELETE FROM users WHERE id = ?";
-	private final String SQL_UPDATE = "UPDATE users set username= ?, password  = ?, email = ?, address = ?, phoneNum = ?, dateOfBirth = ?, typeId = ? WHERE id = ?";
-	private final String SQL_INSERT = "insert into users(id, username, password, email, address, phoneNum, dateOfBirth, typeId) values(?,?,?,?,?,?,?,?)";
+	private final String SQL_UPDATE = "UPDATE users set username= ?, password  = ?, email = ?, address = ?, phoneNum = ?, dateOfBirth = ?, userType = ? WHERE id = ?";
+	private final String SQL_INSERT = "insert into users(id, username, password, email, address, phoneNum, dateOfBirth, userType) values(?,?,?,?,?,?,?,?)";
 	private final String SQL_GET_ALL = "SELECT * FROM users";
 	private final String SQL_UPDATE_PASSWORD = "UPDATE Users SET password = ? WHERE username = ?";
 	
@@ -45,11 +45,11 @@ public class UserDAOImpl_riphumi {
 	}
 
 	public boolean updateUser(User_riphumi user) {
-		return jdbcTemplate.update(SQL_UPDATE, user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(), user.getPhoneNum(), user.getDateOfBirth(), user.getTypeId(), user.getId()) > 0;
+		return jdbcTemplate.update(SQL_UPDATE, user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(), user.getPhoneNum(), user.getDateOfBirth(), user.getUserType().toString(), user.getId()) > 0;
 	}
 
 	public boolean createUser(User_riphumi user) {
-		return jdbcTemplate.update(SQL_INSERT, user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(), user.getPhoneNum(), user.getDateOfBirth(), user.getTypeId()) > 0;
+		return jdbcTemplate.update(SQL_INSERT, user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(), user.getPhoneNum(), user.getDateOfBirth(), user.getUserType().toString()) > 0;
 	}
 	
 	public List<User_riphumi> getAllUsers() {

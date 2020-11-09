@@ -134,10 +134,10 @@
 						<tr>
 							<td><form:radiobutton class="form-control mt-3"
 									placeholder="Type Id" name="typeId" required="required"
-									path="typeId" value="1" />Instructor</td>
+									path="userType" value="INSTRUCTOR" />Instructor</td>
 							<td><form:radiobutton class="form-control mt-3"
 									placeholder="Type Id" name="typeId" required="required"
-									path="typeId" value="2" />Student</td>
+									path="userType" value="STUDENT" />Student</td>
 						</tr>
 					</table>
 					<form:button class="btn btn-lg btn-primary btn-block" type="submit">Edit</form:button>

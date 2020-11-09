@@ -14,7 +14,7 @@ CREATE TABLE users
   address VARCHAR NOT NULL,
   phoneNum bigint NOT NULL,
   dateOfBirth VARCHAR NOT NULL,
-  typeId bigint NULL,
+  userType VARCHAR NULL,
   PRIMARY KEY (username)
 );
 

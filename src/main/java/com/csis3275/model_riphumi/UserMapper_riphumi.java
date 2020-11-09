@@ -19,7 +19,7 @@ public class UserMapper_riphumi implements RowMapper<User_riphumi>{
 		user.setAddress(rs.getString("address"));
 		user.setPhoneNum(Long.parseLong(rs.getString("phoneNum")));
 		user.setDateOfBirth(rs.getString("dateOfBirth"));
-		user.setTypeId(Integer.parseInt(rs.getString("typeId")));
+		user.setUserType(UserType.valueOf(rs.getString("userType")));
 		return user;
 	}
 

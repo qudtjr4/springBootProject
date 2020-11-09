@@ -1,5 +1,7 @@
 package com.csis3275.model_riphumi;
 
+import javax.persistence.Enumerated;
+
 public class User_riphumi {
 	private int id;
 	private String username;
@@ -8,7 +10,7 @@ public class User_riphumi {
 	private String address;
 	private long phoneNum;
 	private String dateOfBirth;
-	private int typeId;
+	private UserType userType;
 	
 	
 	
@@ -19,7 +21,7 @@ public class User_riphumi {
 		this.address ="";
 		this.phoneNum =0;
 		this.dateOfBirth = "";
-		this.typeId = 0;
+		this.userType = UserType.STUDENT;
 	}
 	public String getUsername() {
 		return username;
@@ -64,12 +66,11 @@ public class User_riphumi {
 	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	public int getTypeId() {
-		return typeId;
+	public UserType getUserType() {
+		return userType;
 	}
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
-		
-	
+
 }
