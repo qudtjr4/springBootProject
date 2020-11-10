@@ -1,4 +1,6 @@
 DROP TABLE users IF EXISTS;
+DROP TABLE files IF EXISTS;
+DROP TABLE folders IF EXISTS;
 CREATE TABLE users
 (
    id bigint auto_increment,
@@ -10,4 +12,24 @@ CREATE TABLE users
   dateOfBirth VARCHAR NOT NULL,
   typeId bigint NULL,
   PRIMARY KEY (username)
+);
+
+CREATE TABLE folders
+(
+  id bigint auto_increment,
+  parentId bigint NOT NULL,
+  name VARCHAR NOT NULL,
+  createDate Date NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE files
+(
+  id bigint auto_increment,
+  folderId bigint NOT NULL,
+  location VARCHAR NOT NULL,
+  name VARCHAR NOT NULL,
+  createDate Date NULL,
+  PRIMARY KEY (id),
+  constraint FK_folderId foreign key (folderId) references folders (id)
 );
