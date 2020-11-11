@@ -46,8 +46,8 @@ public class CourseDAOImpl {
 	}
 
 	public boolean insertCourse(Course course, User_riphumi user, Folder_riphumi folder) {
-		int temp = folderDAOImpl.insertFolderAndGetKey(folder);
-		boolean insertCourse = jdbcTemplate.update(SQL_INSERT_COURSE, course.getCourseID(), course.getCourseName(), course.getCourseShortName(), course.getStartDate(), course.getEndDate(), temp) > 0;
+		int folderID = folderDAOImpl.insertFolderAndGetKey(folder);
+		boolean insertCourse = jdbcTemplate.update(SQL_INSERT_COURSE, course.getCourseID(), course.getCourseName(), course.getCourseShortName(), course.getStartDate(), course.getEndDate(), folderID) > 0;
 		boolean insertCourseUser = jdbcTemplate.update(SQL_INSERT_COURSE_USER, course.getCourseID(), user.getUsername()) > 0;
 		
 		return insertCourse && insertCourseUser;

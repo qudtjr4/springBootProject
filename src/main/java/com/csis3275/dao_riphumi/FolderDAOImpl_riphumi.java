@@ -62,7 +62,6 @@ public class FolderDAOImpl_riphumi {
 		        }
 		    },
 		    keyHolder);
-		System.out.println(keyHolder.getKey());
 		return (int) keyHolder.getKey();
 	}
 	
