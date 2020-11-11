@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -32,7 +33,42 @@
 <body>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-		<%@include file="/sideBar.jsp"%>
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<img class="mr-3" src="/resources/img/logo.jpg" alt="" width="72"
+						height="72">MOSS
+				</h3>
+			</div>
+
+			<ul class="list-unstyled components">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a></li>
+				<li><a href="#pageSubmenu" data-toggle="collapse"
+					aria-expanded="false" class="dropdown-toggle">Announcements</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu">
+						<li><a href="#">Page 1</a></li>
+						<li><a href="#">Page 2</a></li>
+						<li><a href="#">Page 3</a></li>
+					</ul></li>
+
+				<li><a href="#">Grade</a></li>
+				<li><a href="#">Schedule</a></li>
+				<%
+					int id = (int) ((Map<String, Object>) session.getAttribute("login")).get("id");
+				if (id == 0) {
+					out.print("<li><a href='/admin'>Admin Page</a></li>");
+				}
+				%>
+
+			</ul>
+
+			<ul class="list-unstyled CTAs">
+
+				<li><a href="${pageContext.request.contextPath}/login/logout"
+					class="article">Log Out</a></li>
+			</ul>
+		</nav>
 
 		<!-- Page Content  -->
 		<div id="content">
@@ -49,48 +85,49 @@
 				</div>
 			</nav>
 			<div class="add-course">
-			<h2>Course info</h2>
-			</br>
-			<form:form class="form-horizontal" role="form"
-				action="${pageContext.request.contextPath}/addCourse" method="post"
-				modelAttribute="course">
-				<div class="form-group">
-					<label class="col-md-3 control-label">Course Name:</label>
-					<div class="">
-						<form:input class="form-control" type="text" path="courseName"
-							required="required" />
+				<h2>Course info</h2>
+				</br>
+				<form:form class="form-horizontal" role="form"
+					action="${pageContext.request.contextPath}/addCourse" method="post"
+					modelAttribute="course">
+					<div class="form-group">
+						<label class="col-md-3 control-label">Course Name:</label>
+						<div class="">
+							<form:input class="form-control" type="text" path="courseName"
+								required="required" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Course Short Name:</label>
-					<div class="">
-						<form:input class="form-control" type="text"
-							path="courseShortName" required="required" />
+					<div class="form-group">
+						<label class="col-md-3 control-label">Course Short Name:</label>
+						<div class="">
+							<form:input class="form-control" type="text"
+								path="courseShortName" required="required" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="date" class="col-md-3 control-label">Start Date</label>
-					<div class="">
-						<form:input type="date" path="startDate" cssClass="form-control"
-							required="required" />
+					<div class="form-group">
+						<label for="date" class="col-md-3 control-label">Start
+							Date</label>
+						<div class="">
+							<form:input type="date" path="startDate" cssClass="form-control"
+								required="required" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="date" class="col-md-3 control-label">End Date</label>
-					<div class="">
-						<form:input type="date" path="endDate" cssClass="form-control"
-							required="required" />
+					<div class="form-group">
+						<label for="date" class="col-md-3 control-label">End Date</label>
+						<div class="">
+							<form:input type="date" path="endDate" cssClass="form-control"
+								required="required" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"></label>
-					<div class="">
-						<form:button type="submit" class="btn btn-primary">Add Course</form:button>
-						<span></span> <input type="reset" class="btn btn-default"
-							value="Cancel">
+					<div class="form-group">
+						<label class="col-md-3 control-label"></label>
+						<div class="">
+							<form:button type="submit" class="btn btn-primary">Add Course</form:button>
+							<span></span> <input type="reset" class="btn btn-default"
+								value="Cancel">
+						</div>
 					</div>
-				</div>
-			</form:form>
+				</form:form>
 			</div>
 		</div>
 	</div>
