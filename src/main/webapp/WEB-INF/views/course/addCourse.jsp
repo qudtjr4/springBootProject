@@ -32,35 +32,7 @@
 <body>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<div class="sidebar-header">
-				<h3>
-					<img class="mr-3" src="/resources/img/logo.jpg" alt="" width="72"
-						height="72">MOSS
-				</h3>
-			</div>
-
-			<ul class="list-unstyled components">
-				<li class="active"><a href="/">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
-				</li>
-				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Announcements</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="#">Page 1</a></li>
-						<li><a href="#">Page 2</a></li>
-						<li><a href="#">Page 3</a></li>
-					</ul></li>
-				<li><a href="#">Grade</a></li>
-				<li><a href="#">Schedule</a></li>
-			</ul>
-
-			<ul class="list-unstyled CTAs">
-
-				<li><a href="${pageContext.request.contextPath}/login/logout"
-					class="article">Log Out</a></li>
-			</ul>
-		</nav>
+		<%@include file="/sideBar.jsp"%>
 
 		<!-- Page Content  -->
 		<div id="content">
@@ -138,13 +110,7 @@
 		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
 		crossorigin="anonymous"></script>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#sidebarCollapse').on('click', function() {
-				$('#sidebar').toggleClass('active');
-			});
-		});
-	</script>
+	<script src="resources/js/main.js" type="text/javascript"></script>
 </body>
 
 </html>
