@@ -90,6 +90,16 @@
 
 				</div>
 			</nav>
+			<div class="col-sm-6 col-md-4 border m-3">
+				<div class="thumbnail">
+					<a href="${pageContext.request.contextPath}/fileExplorer?id=1">
+						<div class="caption">
+							<h3>Feature 1</h3>
+							<p>Container for next features</p>
+						</div>
+					</a>
+				</div>
+			</div>
 			<div class="row">
 				<c:if test="${ courses != null }">
 					<c:forEach var="course" items="${courses}">
