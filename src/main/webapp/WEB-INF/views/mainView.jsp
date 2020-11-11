@@ -57,10 +57,10 @@
 				<li><a href="#">Grade</a></li>
 				<li><a href="#">Schedule</a></li>
 
-				
-				<% 
-				int id = (int)((Map<String, Object>)session.getAttribute("login")).get("id");
-				if(id == 0){
+
+				<%
+					int id = (int) ((Map<String, Object>) session.getAttribute("login")).get("id");
+				if (id == 0) {
 					out.print("<li><a href='/admin'>Admin Page</a></li>");
 				}
 				%>
@@ -90,35 +90,29 @@
 
 				</div>
 			</nav>
-			<div class="col-sm-6 col-md-4 border m-3">
-				<div class="thumbnail">
-					<a href="${pageContext.request.contextPath}/fileExplorer?id=1">
-						<div class="caption">
-							<h3>Feature 1</h3>
-							<p>Container for next features</p>
-						</div>
-					</a>
-				</div>
-			</div>
+			
 			<div class="row">
 				<c:if test="${ courses != null }">
 					<c:forEach var="course" items="${courses}">
-						
 						<div class="col-3 mb-3">
-						<a href="${pageContext.request.contextPath}/course">
-							<div class="card">
-								<div class="course-container">
-									<img class="img-fluid" src="resources/img/bookdrawing.png" alt="Course"/>
-									<div class="course-short-name">${course.courseShortName }</div>
-									<div class="course-name d-flex align-items-center">${course.courseName }</div>
+							<a
+								href="${pageContext.request.contextPath}/fileExplorer?id= ${course.folderID}">
+
+
+								<div class="card">
+									<div class="course-container">
+										<img class="img-fluid" src="resources/img/bookdrawing.png"
+											alt="Course" />
+										<div class="course-short-name">${course.courseShortName }</div>
+										<div class="course-name d-flex align-items-center">${course.courseName }</div>
+									</div>
+
 								</div>
-								
-							</div>
+
+							</a>
 						</div>
-						</a>
 					</c:forEach>
 				</c:if>
-
 			</div>
 			<div class="line"></div>
 			<div class="row">

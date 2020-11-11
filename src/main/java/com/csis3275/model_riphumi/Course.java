@@ -13,6 +13,7 @@ public class Course {
 	private Date startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
+	private int folderID;
 	
 	public Course() {
 		
@@ -51,4 +52,14 @@ public class Course {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+	public int getFolderID() {
+		return folderID;
+	}
+
+	public void setFolderID(int folderID) {
+		this.folderID = folderID;
+	}
+	
+	
 }

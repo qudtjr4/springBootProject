@@ -1,5 +1,8 @@
 package com.csis3275.controller_riphumi;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.csis3275.dao_riphumi.CourseDAOImpl;
 import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
 import com.csis3275.model_riphumi.Course;
+import com.csis3275.model_riphumi.File_riphumi;
+import com.csis3275.model_riphumi.Folder_riphumi;
 import com.csis3275.model_riphumi.User_riphumi;
 
 @Controller
@@ -63,8 +68,15 @@ public class CourseController {
 			User_riphumi user = userDAOImpl.getUserByID(id);
 			
 			createdCourse.setCourseID(UUID.randomUUID().toString());
-			courseDAOImpl.insertCourse(createdCourse, user);
 			
+			//Create a course folder
+			Folder_riphumi courseFolder = new Folder_riphumi();
+			courseFolder.setFatherId(0);
+			courseFolder.setName(createdCourse.getCourseName());
+			courseFolder.setCreateDate(new Date());
+			
+			courseDAOImpl.insertCourse(createdCourse, user, courseFolder);
+
 			List<Course> courses = courseDAOImpl.getCousesByUser(user);
 			model.addAttribute("courses", courses);
 			return "mainView";
