@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -52,13 +53,23 @@
 						<li><a href="#">Page 2</a></li>
 						<li><a href="#">Page 3</a></li>
 					</ul></li>
+
 				<li><a href="#">Grade</a></li>
 				<li><a href="#">Schedule</a></li>
+
+				
+				<% 
+				int id = (int)((Map<String, Object>)session.getAttribute("login")).get("id");
+				if(id == 0){
+					out.print("<li><a href='/admin'>Admin Page</a></li>");
+				}
+				%>
+
 			</ul>
 
 			<ul class="list-unstyled CTAs">
 
-				<li><a href="${pageContext.request.contextPath}/logout"
+				<li><a href="${pageContext.request.contextPath}/login/logout"
 					class="article">Log Out</a></li>
 			</ul>
 		</nav>
@@ -72,7 +83,6 @@
 					<button type="button" id="sidebarCollapse" class="btn btn-info">
 						<i class="fas fa-align-left"></i>
 					</button>
-
 					<h2 class="col-10 mt-2">Home</h2>
 
 					<a href="${pageContext.request.contextPath}/addCourse"><i

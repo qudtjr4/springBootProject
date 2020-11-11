@@ -78,8 +78,7 @@
 			</ul>
 
 			<ul class="list-unstyled CTAs">
-
-				<li><a href="${pageContext.request.contextPath}/logout"
+				<li><a href="${pageContext.request.contextPath}/login/logout"
 					class="article">Log Out</a></li>
 			</ul>
 		</nav>
@@ -99,6 +98,7 @@
 				</div>
 			</nav>
 			<div class="text-center">
+
 				<form:form class="form-signin"
 					action="${pageContext.request.contextPath}/editProfile/"
 					method="POST" modelAttribute="user">
@@ -108,23 +108,24 @@
 					<c:if test="${ message != null }">
 						<div class="alert alert-success" role="alert">${message}</div>
 					</c:if>
-					<label for="username" class="sr-only">User Name</label>
-					<form:hidden path="password" />
-					<form:hidden path="id" />
+
+
+
 					<form:input type="text" id="id" class="form-control"
-						placeholder="ID" name="User Name" required="required"
+						placeholder="User Name" name="User Name" required="required"
 						path="username" />
+
 					<label for="email" class="sr-only">Email</label>
-					<form:input type="text" id="email" class="form-control mt-3"
+					<form:input type="email" id="email" class="form-control mt-3"
 						placeholder="Email" name="email" required="required" path="email" />
 					<label for="address" class="sr-only">Address</label>
 					<form:input type="text" id="address" class="form-control mt-3"
 						placeholder="Address" name="address" required="required"
 						path="address" />
 					<label for="phoneNum" class="sr-only">Phone Number</label>
-					<form:input type="text" id="phoneNum" class="form-control mt-3"
-						placeholder="Phone Num" name="phoneNum" required="required"
-						path="phoneNum" />
+					<form:input type="tel" id="phoneNum" class="form-control mt-3"
+						placeholder="###-####-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+						name="phoneNum" required="required" path="phoneNum" />
 					<label for="dateOfBirth" class="sr-only">Date Of Birth</label>
 					<form:input type="date" id="dateOfBirth" class="form-control mt-3"
 						placeholder="Date Of Birth" name="dateOfBirth" required="required"
@@ -134,14 +135,74 @@
 						<tr>
 							<td><form:radiobutton class="form-control mt-3"
 									placeholder="Type Id" name="typeId" required="required"
-									path="userType" value="INSTRUCTOR" />Instructor</td>
+									path="typeId" value="0" />Instructor</td>
 							<td><form:radiobutton class="form-control mt-3"
 									placeholder="Type Id" name="typeId" required="required"
-									path="userType" value="STUDENT" />Student</td>
+									path="typeId" value="1" />Student</td>
 						</tr>
 					</table>
+					<br />
+					<form:hidden path="id" />
 					<form:button class="btn btn-lg btn-primary btn-block" type="submit">Edit</form:button>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-lg btn-primary btn-block"
+						data-toggle="modal" data-target="#passwordModal">Change
+						Password</button>
+
 					<p class="mt-5 mb-3 text-muted">&copy; Rhiphumi - MOSS</p>
+				</form:form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog"
+		aria-labelledby="passwordModal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form:form action="${pageContext.request.contextPath}/changePassword/"
+					method="POST" modelAttribute="user" oninput='newPassword2.setCustomValidity(newPassword2.value != newPassword.value ? "Passwords do not match." : "")'
+				>
+				<div class="modal-body">
+					
+						<div class="form-row align-items-center">
+							<div class="form-group col-md-6">
+								Present Password
+								<label for="inputPassword2" class="sr-only">Password</label> <input
+									type="password" class="form-control" id="oldPassword" name="oldPassword"
+									placeholder="Password">
+							</div>
+							--------------------------------------------------------------------------------
+							<div class="form-group col-md-6">
+							New Password
+								<input type="password" id="newPassword" class="form-control mt-3"
+									placeholder="Password" name="newPassword" required="required" />
+							</div>
+							<div class="form-group col-md-6">
+							New Password
+								<input type="password" id="newPassword2" class="form-control mt-3"
+									placeholder="Confirm Password" name="newPassword2"
+									required="required" />
+							</div>
+							<input type="hidden" id="username" name="username" value="${user.username}"/>
+						</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Change
+						Password</button>
+				</div>
 				</form:form>
 			</div>
 		</div>

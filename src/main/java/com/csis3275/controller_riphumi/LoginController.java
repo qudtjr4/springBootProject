@@ -62,7 +62,7 @@ public class LoginController {
 		System.out.println(userLogin.getUsername()+":"+userLogin.getRemember());
 		
 		User_riphumi user = userDaoImpl.login(userLogin);
-		if (user != null) {
+		if (user != null && user.isStatus()) {
 			String username = user.getUsername();
 			
 			loginMap.put("id", user.getId());
@@ -86,7 +86,12 @@ public class LoginController {
 				  }
 				}
 			model.addAttribute("loginDTO",new LoginDTO());
-			model.addAttribute("message", "Invalid username or password, please try again");
+			if(user == null) {
+				model.addAttribute("message", "Invalid username or password, please try again");
+			}else if(!user.isStatus()) {
+				model.addAttribute("message", "You are not allowed to enter MOSS, Pleas wait to confirm");
+			}
+			
 			return "login/loginPage";
 		}
 	}

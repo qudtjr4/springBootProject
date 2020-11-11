@@ -59,7 +59,7 @@
 
 			<ul class="list-unstyled CTAs">
 
-				<li><a href="${pageContext.request.contextPath}/logout"
+				<li><a href="${pageContext.request.contextPath}/login/logout"
 					class="article">Log Out</a></li>
 			</ul>
 		</nav>

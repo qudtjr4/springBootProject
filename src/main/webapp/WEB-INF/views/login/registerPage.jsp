@@ -35,40 +35,103 @@
 		font-size: 3.5rem;
 	}
 }
+
+.center_div {
+	margin: 0 auto;
+	width: 50% /* value of your choice which suits your alignment */
+}
 </style>
 <!-- Custom styles for this template -->
-<link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/signin.css" />"
+	rel="stylesheet">
 </head>
 <body class="text-center">
-	<form:form class="form-signin" action="${pageContext.request.contextPath}/login/register" 
-	method="POST" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")' modelAttribute="user">
-		<img class="mb-4" src="<c:url value="/resources/img/logo.jpg" />" alt=""
-			width="72" height="72">
-			<c:if test="${user.username != null}">
-				<h1 class="h3 mb-3 font-weight-normal">Edit Profile</h1>
-			</c:if>
-			<c:if test="${user.username == null}">
-				<h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
-			</c:if>
-		<c:if test="${ message != null }" >
+	
+	<div class="container center_div">
+		<form:form action="${pageContext.request.contextPath}/login/register"
+			method="POST"
+			oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'
+			modelAttribute="user">
+			<img class="mb-4" src="<c:url value="/resources/img/logo.jpg" />"
+				alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+			<c:if test="${ message != null }">
 				<div class="alert alert-success" role="alert">${message}</div>
-			 </c:if>	
-		<label for="username" class="sr-only">ID</label> 
-		<form:input type="text" id="id" class="form-control" placeholder="ID" name="username" required="required" path="username"/>
-		<label for="password" class="sr-only">Password</label> 
-		<form:input type="password" id="password" class="form-control mt-3" placeholder="Password" name="password" required="required" path="password"/>
-		<label for="confirmPassword" class="sr-only">Confirm Password</label> 
-		<input type="password" id="password2" class="form-control mt-3" placeholder="Confirm Password" name="password2" required="required" />
-		<c:if test="${user.username != null}">
-		<form:button class="btn btn-lg btn-primary btn-block" type="submit">Edit</form:button>
-		</c:if>
-		<c:if test="${user.username == null}">
-		<form:button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</form:button>
-		</c:if>
-		<p class="text-center mt-5 mb-5">
-			<a href="${pageContext.request.contextPath}/login">Login</a>
-		</p>
-		<p class="mt-5 mb-3 text-muted">&copy; Rhiphumi - MOSS</p>
-	</form:form>
+			</c:if>
+
+
+			<div class="form-group row">
+				<label for="username" class="col-sm-2 col-form-label">User
+					Name</label>
+				<div class="col-sm-10">
+					<form:input type="text" id="username" class="form-control"
+						placeholder="User Name" name="username" required="required"
+						path="username" />
+				</div>
+			</div>
+			<div class="form-row align-items-center">
+
+				<div class="form-group col-md-6">
+					<form:input type="password" id="password" class="form-control mt-3"
+						placeholder="Password" name="password" required="required"
+						path="password" />
+				</div>
+				<div class="form-group col-md-6">
+					<input type="password" id="password2" class="form-control mt-3"
+						placeholder="Confirm Password" name="password2"
+						required="required" />
+				</div>
+			</div>
+			<br>
+			<div class="form-group row">
+				<label for="email" class="col-sm-2 col-form-label">Email</label>
+				<div class="col-sm-10">
+					<form:input type="email" id="id" class="form-control"
+						placeholder="EMAIL" name="email" required="required" path="email" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="address" class="col-sm-2 col-form-label">Address</label>
+				<div class="col-sm-10">
+					<form:input type="text" id="address" class="form-control"
+						placeholder="ADDRESS" name="address" required="required"
+						path="address" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="phoneNum" class="col-sm-2 col-form-label">Phone</label>
+				<div class="col-sm-10">
+					<form:input type="tel" id="phoneNum" class="form-control"
+						placeholder="###-####-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+						name="phoneNum" required="required" path="phoneNum" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="dateOfBirth" class="col-sm-2 col-form-label">Birth
+					Date</label>
+				<div class="col-sm-10">
+					<form:input type="date" id="dateOfBirth" class="form-control"
+						name="dateOfBirth" required="required" path="dateOfBirth" />
+				</div>
+			</div>
+			<form:radiobutton class="" name="typeId" id="typeId" value="0"
+				path="typeId" />
+			<label class="form-check-label" for="gridRadios1">Instructor</label>
+			<form:radiobutton class="" name="typeId" id="typeId" value="1"
+				path="typeId" />
+			<label class="form-check-label" for="gridRadios2">Student</label>
+			<form:hidden id="status" name="status" value="false"
+				path="status" />
+			<br>
+			<br>
+
+
+			<form:button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</form:button>
+			<p class="text-center mt-5 mb-5">
+				<a href="${pageContext.request.contextPath}/login">Login</a>
+			</p>
+			<p class="mt-5 mb-3 text-muted">&copy; Rhiphumi - MOSS</p>
+		</form:form>
+	</div>
 </body>
 </html>

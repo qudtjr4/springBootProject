@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -7,16 +8,18 @@
 <html>
 
 <head>
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Add Course</title>
+<title>MOSS - Management Of School System</title>
 
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/css/style.css">
+
+<link rel="stylesheet" href="resources/css/calendar.css">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -45,14 +48,20 @@
 				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
 				</li>
 				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Announcements</a>
+					aria-expanded="false" class="dropdown-toggle">Pages</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">Page 1</a></li>
 						<li><a href="#">Page 2</a></li>
 						<li><a href="#">Page 3</a></li>
 					</ul></li>
-				<li><a href="#">Grade</a></li>
-				<li><a href="#">Schedule</a></li>
+				<li><a href="#">Portfoli</a></li>
+				<li><a href="#">Contact</a></li>
+				<%
+					int id = (int) ((Map<String, Object>) session.getAttribute("login")).get("id");
+				if (id == 0) {
+					out.print("<li><a href='/admin'>Admin Page</a></li>");
+				}
+				%>
 			</ul>
 
 			<ul class="list-unstyled CTAs">
@@ -71,55 +80,74 @@
 					<button type="button" id="sidebarCollapse" class="btn btn-info">
 						<i class="fas fa-align-left"></i>
 					</button>
+					<h2 class="col-10 mt-2">Accept Permission</h2>
 
-					<h2 class="col-12 ml-5 mt-2">Add Course</h2>
+					<a href="${pageContext.request.contextPath}/addCourse"><i
+						type="button" class="fas fa-plus"></i> Add Course</a>
 
 				</div>
 			</nav>
-			<div class="add-course">
-			<h2>Course info</h2>
-			</br>
-			<form:form class="form-horizontal" role="form"
-				action="${pageContext.request.contextPath}/addCourse" method="post"
-				modelAttribute="course">
-				<div class="form-group">
-					<label class="col-md-3 control-label">Course Name:</label>
-					<div class="">
-						<form:input class="form-control" type="text" path="courseName"
-							required="required" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Course Short Name:</label>
-					<div class="">
-						<form:input class="form-control" type="text"
-							path="courseShortName" required="required" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="date" class="col-md-3 control-label">Start Date</label>
-					<div class="">
-						<form:input type="date" path="startDate" cssClass="form-control"
-							required="required" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="date" class="col-md-3 control-label">End Date</label>
-					<div class="">
-						<form:input type="date" path="endDate" cssClass="form-control"
-							required="required" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"></label>
-					<div class="">
-						<form:button type="submit" class="btn btn-primary">Add Course</form:button>
-						<span></span> <input type="reset" class="btn btn-default"
-							value="Cancel">
-					</div>
-				</div>
-			</form:form>
-			</div>
+			<c:if test="${ instructors.size() != 0 }">
+				<h1>Instructors</h1>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Accept</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="instructor" items="${instructors}">
+							<tr>
+								<th scope="row">${ instructor.id }</th>
+								<td>${ instructor.username }</td>
+								<td>${ instructor.email }</td>
+								<td>${ instructor.phoneNum }</td>
+								<td><a href="/admin/acceptPermission?id=${instructor.id}"><button type="button"
+											class="btn btn-primary">Accept</button></a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+			<c:if test="${ students.size() != 0 }">
+				<h1>Students</h1>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Accept</th>
+					</tr>
+				</thead>
+				<tbody>
+						<c:forEach var="student" items="${students}">
+							<tr>
+								<th scope="row">${ student.id }</th>
+								<td>${ student.username }</td>
+								<td>${ student.email }</td>
+								<td>${ student.phoneNum }</td>
+								<td><a href="/admin/acceptPermission?id=${student.id}"><button type="button"
+											class="btn btn-primary">Accept</button></a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+
+
+
+
+
+
+			
+					
+
 		</div>
 	</div>
 
