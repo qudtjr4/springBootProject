@@ -1,7 +1,12 @@
 package com.csis3275.controller_riphumi;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +27,12 @@ import com.csis3275.dao_riphumi.CourseDAOImpl;
 import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
 import com.csis3275.model_riphumi.Course;
 import com.csis3275.model_riphumi.LoginDTO;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.csis3275.dao_riphumi.FolderDAOImpl_riphumi;
+import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
+import com.csis3275.model_riphumi.File_riphumi;
+import com.csis3275.model_riphumi.Folder_riphumi;
 import com.csis3275.model_riphumi.User_riphumi;
 
 @Controller
@@ -31,6 +42,12 @@ public class MainController_mki_39 {
 	UserDAOImpl_riphumi userDaoImpl;
 	@Autowired
 	CourseDAOImpl courseDAOImpl;
+	@Autowired
+	FolderDAOImpl_riphumi folderDaoImpl;
+	
+	private Folder_riphumi root;
+	private int currentFolderId;
+	
 
 	@ModelAttribute("user")
 	public User_riphumi setupLoginForm() {
@@ -87,6 +104,40 @@ public class MainController_mki_39 {
 
 		return "redirect:/";
 	}
+
+	@GetMapping("fileExplorer")
+	public String fileExplorer(@RequestParam("id") int id, Model model) {
+		Folder_riphumi tree = new Folder_riphumi();
+		if (root == null) {
+			root = folderDaoImpl.getEntireFolder(id);
+			tree = root;
+			currentFolderId = id;
+		} else {
+			tree = folderDaoImpl.getEntireFolder(id);
+			currentFolderId = id;
+		}
+		model.addAttribute("folders", tree);
+		model.addAttribute("file", new File_riphumi());
+		return "fileExplorer";
+	}
+
+	@PostMapping("fileExplorer")
+	public String addFolder(@ModelAttribute("folders") Folder_riphumi folder, Model model) {
+		folder.setCreateDate(Calendar.getInstance().getTime());
+		folderDaoImpl.createFolder(folder);
+		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
+		model.addAttribute("folders", father);
+		return "fileExplorer";
+	}
+	
+//	@PostMapping("fileExplorer/AddFile")
+//	public String addFile(@ModelAttribute("file") File_riphumi file, @ModelAttribute("location") MultipartFile location,Model model) {
+////		folder.setCreateDate(format.format(Calendar.getInstance().getTime()));
+////		folderDaoImpl.createFolder(folder);
+//		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
+//		model.addAttribute("folders", father);
+//		return "fileExplorer";
+//	}
 	
 	@PostMapping("changePassword")
 	public String changePassword(@RequestParam("newPassword") String password,

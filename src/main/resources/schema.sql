@@ -5,6 +5,8 @@ DROP TABLE Grade IF EXISTS;
 DROP TABLE Assignment IF EXISTS;
 DROP TABLE Course IF EXISTS;
 
+DROP TABLE files IF EXISTS;
+DROP TABLE folders IF EXISTS;
 CREATE TABLE users
 (
 	id INT auto_increment,
@@ -69,4 +71,26 @@ CREATE TABLE Course_User
   username VARCHAR NOT NULL,
   FOREIGN KEY (courseID) REFERENCES Course(courseID),
   FOREIGN KEY (username) REFERENCES Users(username)
+);
+
+CREATE TABLE folders
+(
+  id INT auto_increment,
+  parentId INT NOT NULL,
+  courseId INT not null,
+  name VARCHAR NOT NULL,
+  createDate Date NULL,
+  PRIMARY KEY (id),
+  FOREIGN kEY (courseId) REFERENCES Course(CourseID)
+);
+
+CREATE TABLE files
+(
+  id INT auto_increment,
+  folderId INT NOT NULL,
+  location VARCHAR NOT NULL,
+  name VARCHAR NOT NULL,
+  createDate Date NULL,
+  PRIMARY KEY (id),
+  constraint FK_folderId foreign key (folderId) references folders (id)
 );

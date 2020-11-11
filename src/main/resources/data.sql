@@ -1,5 +1,5 @@
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (0, 'admin', '123', 'umedeway0@nationalgeographic.com', '10 Raven Avenue', '241-565-6808', '2020-12-20', 0, true);
-insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (1, 'test', '123', 'umedeway0@nationalgeographic.com', '10 Raven Avenue', '241-565-6808', '2020-12-20', 0, false);
+insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (1, 'test', '123', 'umedeway0@nationalgeographic.com', '10 Raven Avenue', '241-565-6808', '2020-12-20', 0, true);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (2, 'min', '123', 'rlogan1@gravatar.com', '06 Pawling Place', '118-490-6237', '2020-12-20', 1, false);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (3, 'Art', 'BXIugWS', 'abahls2@tripod.com', '2937 Fallview Junction', '767-655-6965', '2020-12-20', 1, false);
 insert into users (id, username, password, email, address, phoneNum, dateOfBirth, typeId, status) values (4, 'Barnabas', 'JmizrGtecM', 'bbaal3@berkeley.edu', '05290 Porter Plaza', '535-485-2752', '2020-12-20', 0, false);
@@ -21,3 +21,8 @@ INSERT INTO course_user(courseID, username) values(1, 'test');
 INSERT INTO course_user(courseID, username) values(2, 'test');
 INSERT INTO course_user(courseID, username) values(3, 'test');
 INSERT INTO course_user(courseID, username) values(4, 'test');
+
+--Folder
+insert into folders values(1,0, 'Software Engineering', CURRENT_TIMESTAMP());
+insert into folders values(2,1, 'Contemt', CURRENT_TIMESTAMP());
+insert into folders values(3,1, 'Assigment', CURRENT_TIMESTAMP());
