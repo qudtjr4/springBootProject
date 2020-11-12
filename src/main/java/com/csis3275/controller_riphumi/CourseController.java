@@ -17,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.csis3275.dao_riphumi.CourseDAOImpl;
 import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
@@ -83,9 +86,34 @@ public class CourseController {
 		}
 	}
 	
-	@GetMapping("course")
+	@GetMapping("manageStudent")
 	public String course(HttpSession session, Model model, HttpServletRequest request) {
+		List<User_riphumi> students = courseDAOImpl.getAllStudents();
+		model.addAttribute("students", students);
 		
-		return "course/course";
+		return "manageStudent/manageStudent";
+	}
+	
+	@RequestMapping("/manageStudent/searchEmail")
+	@ResponseBody
+	public Object[] searchEmail(@RequestParam(value = "term", required = false, defaultValue = "")String term) {
+		System.out.println(term);
+		List<String> result = new ArrayList<String>();
+		
+		List<User_riphumi> allStudents = courseDAOImpl.getAllStudents();
+		for(User_riphumi student : allStudents) {
+			if(student.getEmail().contains(term)) {
+				result.add(student.getEmail());
+			}
+		}	
+		
+		return result.toArray();
+	}
+	
+	@PostMapping("/manageStudent/addStudent")
+	public String addStudent(@RequestParam("email")String email, Model model) {
+		User_riphumi user = userDAOImpl.getUserByEmail(email);
+		
+		return "";
 	}
 }

@@ -27,6 +27,7 @@ public class UserDAOImpl_riphumi {
 	private final String SQL_UPDATE_PASSWORD = "UPDATE Users SET password = ? WHERE username = ?";
 	private final String SQL_GET_USERS_STATUS_FALSE = "SELECT * FROM users WHERE status = false";
 	private final String SQL_UPDATE_STATUS = "UPDATE users set status = true WHERE id = ?";
+	private final String SQL_GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email = ?";
 	
 	@Autowired
 	public UserDAOImpl_riphumi(DataSource dataSource) {
@@ -94,5 +95,9 @@ public class UserDAOImpl_riphumi {
 
 	public boolean updateStatus(int id) {
 		return jdbcTemplate.update(SQL_UPDATE_STATUS, id) > 0;
+	}
+	
+	public User_riphumi getUserByEmail(String email) {
+		return jdbcTemplate.queryForObject(SQL_GET_USER_BY_EMAIL, new Object[] {email}, new UserMapper_riphumi());
 	}
 }

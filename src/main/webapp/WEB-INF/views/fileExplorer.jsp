@@ -152,6 +152,10 @@
 				</div>
 			</div>
 
+			<div class="text-center mt-5">
+				<a href="${pageContext.request.contextPath}/manageStudent"><i
+					class="fas fa-plus"></i>Manage Student</a>
+			</div>
 
 		</div>
 	</div>
