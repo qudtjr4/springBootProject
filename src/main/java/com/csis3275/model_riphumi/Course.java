@@ -61,5 +61,8 @@ public class Course {
 		this.folderID = folderID;
 	}
 	
+	public boolean isOpening() {
+		return this.endDate.after(new Date());
+	}
 	
 }
