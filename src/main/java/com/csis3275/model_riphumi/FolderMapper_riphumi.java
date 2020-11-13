@@ -11,7 +11,7 @@ public class FolderMapper_riphumi implements RowMapper<Folder_riphumi>{
 	public Folder_riphumi mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Folder_riphumi folder = new Folder_riphumi();
 		folder.setId(rs.getInt("id"));
-		folder.setFatherId(rs.getInt("parentId"));
+		folder.setParentId(rs.getInt("parentId"));
 		folder.setName(rs.getString("name"));
 		folder.setCreateDate(rs.getDate("createDate"));
 		return folder;

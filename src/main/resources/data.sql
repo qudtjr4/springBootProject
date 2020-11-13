@@ -23,6 +23,8 @@ INSERT INTO course_user(courseID, username) values(3, 'test');
 INSERT INTO course_user(courseID, username) values(4, 'test');
 
 --Folder
-insert into folders values(1,0, 'Software Engineering', CURRENT_TIMESTAMP());
-insert into folders values(2,1, 'Contemt', CURRENT_TIMESTAMP());
+insert into folders values(1,0,'Software Engineering', CURRENT_TIMESTAMP());
+insert into folders values(2,1,'Contemt', CURRENT_TIMESTAMP());
 insert into folders values(3,1, 'Assigment', CURRENT_TIMESTAMP());
+
+

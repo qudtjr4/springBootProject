@@ -34,11 +34,11 @@ public class FolderDAOImpl_riphumi {
 	}
 	
 	public boolean updateFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_UPDATE, folder.getFatherId(), folder.getName(), folder.getCreateDate()) > 0;
+		return jdbcTemplate.update(SQL_UPDATE, folder.getParentId(), folder.getName(), folder.getCreateDate()) > 0;
 	}
 	
 	public boolean createFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_INSERT, folder.getFatherId(), folder.getName(), folder.getCreateDate()) > 0;
+		return jdbcTemplate.update(SQL_INSERT, folder.getParentId(), folder.getName(), folder.getCreateDate()) > 0;
 	}
 	
 	public List<Folder_riphumi> getAllChildren(int parentId) {

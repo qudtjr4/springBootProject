@@ -13,7 +13,8 @@ public class FileMapper_riphumi implements RowMapper<File_riphumi>{
 		file.setId(Integer.parseInt(rs.getString("id")));
 		file.setFolderId(Integer.parseInt(rs.getString("folderId")));
 		file.setLocation(rs.getString("location"));
-		file.setName(rs.getString("createDate"));
+		file.setName(rs.getString("name"));
+		file.setLastUpdate(rs.getDate("createDate"));
 		return null;
 	}
 

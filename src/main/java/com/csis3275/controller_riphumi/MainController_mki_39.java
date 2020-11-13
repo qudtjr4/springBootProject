@@ -1,5 +1,15 @@
 package com.csis3275.controller_riphumi;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,15 +20,25 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectSerializer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +54,11 @@ import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
 import com.csis3275.model_riphumi.File_riphumi;
 import com.csis3275.model_riphumi.Folder_riphumi;
 import com.csis3275.model_riphumi.User_riphumi;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/")
@@ -47,6 +72,10 @@ public class MainController_mki_39 {
 	
 	private Folder_riphumi root;
 	private int currentFolderId;
+	public HashMap<Integer, String> path;
+	
+//	@Resource(name = "files")
+//	private String files; 
 	
 
 	@ModelAttribute("user")
@@ -107,37 +136,114 @@ public class MainController_mki_39 {
 
 	@GetMapping("fileExplorer")
 	public String fileExplorer(@RequestParam("id") int id, Model model) {
-		Folder_riphumi tree = new Folder_riphumi();
-		if (root == null) {
-			root = folderDaoImpl.getEntireFolder(id);
-			tree = root;
-			currentFolderId = id;
-		} else {
-			tree = folderDaoImpl.getEntireFolder(id);
-			currentFolderId = id;
+		Folder_riphumi tree = folderDaoImpl.getEntireFolder(id);
+		if (tree.getParentId() == 0) {
+			root = tree;
 		}
+		currentFolderId = id;
 		model.addAttribute("folders", tree);
 		model.addAttribute("file", new File_riphumi());
-		return "fileExplorer";
-	}
-
-	@PostMapping("fileExplorer")
-	public String addFolder(@ModelAttribute("folders") Folder_riphumi folder, Model model) {
-		folder.setCreateDate(Calendar.getInstance().getTime());
-		folderDaoImpl.createFolder(folder);
-		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
-		model.addAttribute("folders", father);
+		model.addAttribute("path", findPath(root, currentFolderId));
 		return "fileExplorer";
 	}
 	
-//	@PostMapping("fileExplorer/AddFile")
-//	public String addFile(@ModelAttribute("file") File_riphumi file, @ModelAttribute("location") MultipartFile location,Model model) {
-////		folder.setCreateDate(format.format(Calendar.getInstance().getTime()));
-////		folderDaoImpl.createFolder(folder);
-//		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
-//		model.addAttribute("folders", father);
-//		return "fileExplorer";
-//	}
+	@GetMapping("findFolder")
+	public ResponseEntity<Folder_riphumi> getCurrentFolder(@RequestParam("id") int id, Model model){
+		Folder_riphumi tree = folderDaoImpl.getEntireFolder(id);
+		model.addAttribute("folders", tree);
+		model.addAttribute("file", new File_riphumi());
+		model.addAttribute("path", findPath(root, currentFolderId));
+//		ObjectMapper mapper = new ObjectMapper();
+//		String json = mapper.writeValueAsString(tree);
+		return new ResponseEntity<Folder_riphumi>(tree, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings("null")
+	public Map<Integer, String> findPath(Folder_riphumi folder, int id){
+		Map<Integer, String> temp = new HashMap<Integer, String>();
+		if (folder.getId() == id) {
+			temp.put(folder.getId(), folder.getName());
+			return temp;
+		}
+
+		if (!folder.getFolderList().isEmpty()) {
+			for (Folder_riphumi f : folder.getFolderList()) {
+				if (f.getId() != id) {
+					Map<Integer, String> temp2 = new HashMap<Integer, String>();
+					temp2 = findPath(f, id);
+					if (!temp2.isEmpty()) {
+						temp.put(folder.getId(), folder.getName());
+						temp.putAll(temp2);
+					}
+				} else {
+					temp.put(f.getId(), f.getName());
+					temp.put(folder.getId(), folder.getName());
+				}
+			}
+		} 
+		return temp;
+	}
+
+	@PostMapping("fileExplorer")
+	public Folder_riphumi addFolder(@RequestBody Folder_riphumi folder, Model model, HttpServletRequest request) {
+		folder.setCreateDate(Calendar.getInstance().getTime());
+		folderDaoImpl.createFolder(folder);
+		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
+		root = folderDaoImpl.getEntireFolder(root.getId());
+		model.addAttribute("folders", father);
+		model.addAttribute("file", new File_riphumi());
+		return father;
+	}
+	
+	@PostMapping("fileExplorer/AddFile")
+	public String addFile(@ModelAttribute("file") File_riphumi file,Model model,@RequestParam(value="file1", required = false) MultipartFile mf) {
+//		folder.setCreateDate(format.format(Calendar.getInstance().getTime()));
+//		folderDaoImpl.createFolder(folder);
+		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
+	
+		try {
+			String savedName = uploadFile(mf);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//model.addAttribute("savedName", savedName);
+		
+		model.addAttribute("folders", father);
+		
+		return "fileExplorer";
+	}
+	private String uploadFile(MultipartFile mf) 
+			throws Exception {
+		UUID uuid = UUID.randomUUID();
+		String savedName = uuid.toString() + "_" + mf.getOriginalFilename();
+		
+		String path = "src/main/resources/files/"+root.getId()+"_"+root.getName();
+		
+		Path p = Paths.get(path);
+		File target  = new File(path);
+		target.setReadable(true);
+		target.setWritable(true);
+		
+		
+		if (target.getAbsoluteFile().exists()) {
+			//Provided by Springz
+			mf.transferTo(target);
+//			FileCopyUtils.copy(fileData, target);
+		}else {
+			target.mkdir();
+			mf.transferTo(target);
+			//Provided by Springz
+//			FileCopyUtils.copy(fileData, target);
+		}
+		
+		
+		
+		return savedName;
+	}
+	
+	
 	
 	@PostMapping("changePassword")
 	public String changePassword(@RequestParam("newPassword") String password,

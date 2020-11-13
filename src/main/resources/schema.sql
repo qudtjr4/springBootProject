@@ -3,10 +3,11 @@ DROP TABLE users IF EXISTS;
 DROP TABLE Announcement IF EXISTS;
 DROP TABLE Grade IF EXISTS;
 DROP TABLE Assignment IF EXISTS;
-DROP TABLE Course IF EXISTS;
-
 DROP TABLE files IF EXISTS;
 DROP TABLE folders IF EXISTS;
+DROP TABLE Course IF EXISTS;
+
+
 CREATE TABLE users
 (
 	id INT auto_increment,
@@ -77,11 +78,9 @@ CREATE TABLE folders
 (
   id INT auto_increment,
   parentId INT NOT NULL,
-  courseId INT not null,
   name VARCHAR NOT NULL,
   createDate Date NULL,
-  PRIMARY KEY (id),
-  FOREIGN kEY (courseId) REFERENCES Course(CourseID)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE files
