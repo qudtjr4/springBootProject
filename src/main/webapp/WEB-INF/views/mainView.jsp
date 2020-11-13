@@ -17,7 +17,7 @@
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/main.css">
 
 <link rel="stylesheet" href="resources/css/calendar.css">
 
@@ -35,93 +35,50 @@
 <body>
 	<div class="wrapper">
 		<!-- Sidebar  -->
-		<nav id="sidebar">
-			<div class="sidebar-header">
-				<h3>
-					<img class="mr-3" src="/resources/img/logo.jpg" alt="" width="72"
-						height="72">MOSS
-				</h3>
-			</div>
-
-			<ul class="list-unstyled components">
-				<li class="active"><a href="/">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/editProfile">Profile</a>
-				</li>
-				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Pages</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="#">Page 1</a></li>
-						<li><a href="#">Page 2</a></li>
-						<li><a href="#">Page 3</a></li>
-					</ul></li>
-				<li><a href="#">Portfoli</a></li>
-				<li><a href="#">Contact</a></li>
-				
-				
-				<% 
-				int id = (int)((Map<String, Object>)session.getAttribute("login")).get("id");
-				if(id == 0){
-					out.print("<li><a href='/admin'>Admin Page</a></li>");
-				}
-				%>
-				
-				
-			</ul>
-
-			<ul class="list-unstyled CTAs">
-
-				<li><a href="${pageContext.request.contextPath}/login/logout"
-					class="article">Log Out</a></li>
-			</ul>
-		</nav>
+		<%@include file="sideBar.jsp"%>
 
 		<!-- Page Content  -->
 		<div id="content">
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-
-					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i>
-					</button>
-					<h2 class="col-10 mt-2">Home</h2>
-
-					<a href="${pageContext.request.contextPath}/addCourse"><i
-						type="button" class="fas fa-plus"></i> Add Course</a>
-
+					<div class="row">
+						<div class="col-1">
+							<button type="button" id="sidebarCollapse" class="btn btn-info">
+								<i class="fas fa-align-left"></i>
+							</button>
+						</div>
+					</div>
+					<div class="col-8">
+						<h2 class="col-10 mt-2">Home</h2>
+					</div>
+					<div class="col-3">
+					<div class="float-right">
+						<a href="${pageContext.request.contextPath}/addCourse"><i
+							type="button" class="fas fa-plus"></i> Add Course</a>
+					</div>
+					</div>
 				</div>
 			</nav>
-			<div class="col-sm-6 col-md-4 border m-3">
-				<div class="thumbnail">
-					<a href="${pageContext.request.contextPath}/fileExplorer?id=1">
-						<div class="caption">
-							<h3>Feature 1</h3>
-							<p>Container for next features</p>
-						</div>
-					</a>
-				</div>
-			</div>
+
 			<div class="row">
 				<c:if test="${ courses != null }">
 					<c:forEach var="course" items="${courses}">
-						<div class="col-sm-4 mb-3">
-							<div class="card">
-								<div class="image">
-									<img src="http://loremflickr.com/320/150?random=4" />
-								</div>
-								<div class="card-inner">
-									<div class="header">
-										<h2>${course.courseShortName }- ${course.courseName }</h2>
-									</div>
-									<div class="content">
-										<p>Content area</p>
+						<div class="col-3 mb-3">
+							<a
+								href="${pageContext.request.contextPath}/fileExplorer?id=${course.folderID}">
+								<div class="card">
+									<div class="course-container">
+										<img class="img-fluid" src="resources/img/bookdrawing.png"
+											alt="Course" />
+										<div class="course-short-name">${course.courseShortName }</div>
+										<div class="course-name d-flex align-items-center">${course.courseName }</div>
 									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</c:forEach>
 				</c:if>
-
 			</div>
 			<div class="line"></div>
 			<div class="row">
@@ -349,13 +306,7 @@
 		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
 		crossorigin="anonymous"></script>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#sidebarCollapse').on('click', function() {
-				$('#sidebar').toggleClass('active');
-			});
-		});
-	</script>
+	<script src="resources/js/main.js" type="text/javascript"></script>
 </body>
 
 </html>

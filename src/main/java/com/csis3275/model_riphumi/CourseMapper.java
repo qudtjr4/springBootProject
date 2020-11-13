@@ -17,7 +17,7 @@ public class CourseMapper implements RowMapper<Course> {
 		course.setCourseShortName(rs.getString("courseShortName"));
 		course.setStartDate(rs.getDate("startDate"));
 		course.setEndDate(rs.getDate("endDate"));
-		
+		course.setFolderID(rs.getInt("folderID"));
 		return course;
 	}
 	

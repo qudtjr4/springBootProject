@@ -3,10 +3,9 @@ DROP TABLE users IF EXISTS;
 DROP TABLE Announcement IF EXISTS;
 DROP TABLE Grade IF EXISTS;
 DROP TABLE Assignment IF EXISTS;
+DROP TABLE Course IF EXISTS;
 DROP TABLE files IF EXISTS;
 DROP TABLE folders IF EXISTS;
-DROP TABLE Course IF EXISTS;
-
 
 CREATE TABLE users
 (
@@ -20,7 +19,6 @@ CREATE TABLE users
 	typeId INT NOT NULL,
 	status VARCHAR(50) NOT NULL,
 	PRIMARY KEY (username)
-	
 );
 
 CREATE TABLE Course
@@ -30,6 +28,7 @@ CREATE TABLE Course
   courseShortName VARCHAR NOT NULL,
   startDate DATE NOT NULL,
   endDate DATE NOT NULL,
+  folderID INT NOT NULL,
   PRIMARY KEY (courseID)
 );
 

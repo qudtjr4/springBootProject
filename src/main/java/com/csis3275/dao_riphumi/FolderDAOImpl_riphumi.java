@@ -1,9 +1,16 @@
 package com.csis3275.dao_riphumi;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.csis3275.model_riphumi.FolderMapper_riphumi;
@@ -16,7 +23,7 @@ public class FolderDAOImpl_riphumi {
 	private final String SQL_FIND = "SELECT * FROM folders WHERE id = ?";
 	private final String SQL_DELETE = "DELETE FROM folders WHERE id = ?";
 	private final String SQL_UPDATE = "UPDATE folders set parentId= ?, name  = ?, createDate = ? WHERE id = ?";
-	private final String SQL_INSERT = "insert into folders(parentId, name, createDate) values(?,?, ?)";
+	private final String SQL_INSERT = "insert into folders(parentId, name, createDate) values(?, ?, ?)";
 	private final String SQL_GET_ALL = "SELECT * FROM folders WHERE parentId = ?";
 	
 	
@@ -38,7 +45,24 @@ public class FolderDAOImpl_riphumi {
 	}
 	
 	public boolean createFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_INSERT, folder.getParentId(), folder.getName(), folder.getCreateDate()) > 0;
+		return jdbcTemplate.update(SQL_INSERT, folder.getParentId(),folder.getName(), folder.getCreateDate()) > 0;
+	}
+	
+	public int insertFolderAndGetKey(Folder_riphumi folder) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(
+		    new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		            PreparedStatement ps =
+		                connection.prepareStatement(SQL_INSERT, new String[] {"id"});
+		            ps.setInt(1, folder.getParentId()); 
+		            ps.setString(2, folder.getName());
+		            ps.setDate(3, new java.sql.Date(folder.getCreateDate().getTime()));
+		            return ps;
+		        }
+		    },
+		    keyHolder);
+		return (int) keyHolder.getKey();
 	}
 	
 	public List<Folder_riphumi> getAllChildren(int parentId) {

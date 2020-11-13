@@ -55,6 +55,7 @@ public class User_riphumi {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 	public int getTypeId() {
 		return typeId;
 	}
@@ -68,10 +69,5 @@ public class User_riphumi {
 		this.status = status;
 	}
 	
-	
-	
 
-	
-		
-	
 }
