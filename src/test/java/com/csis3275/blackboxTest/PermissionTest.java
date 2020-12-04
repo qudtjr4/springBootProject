@@ -28,6 +28,7 @@ public class PermissionTest {
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
+    
   }
   @After
   public void tearDown() {
@@ -44,6 +45,8 @@ public class PermissionTest {
     driver.findElement(By.id("password")).sendKeys("123");
     driver.findElement(By.cssSelector(".btn")).click();
     Thread.sleep(1000);
+    
+    
     driver.findElement(By.id("id")).click();
     driver.findElement(By.id("id")).sendKeys("admin");
     driver.findElement(By.id("password")).click();
