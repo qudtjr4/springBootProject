@@ -338,6 +338,7 @@ function deleteFolder(id){
 
 				</div>
 			</div>
+
 		<div class="text-center mt-5">
 						<a href="${pageContext.request.contextPath}/manageStudent?id=${folders.getId()}"><i
 							class="fas fa-plus"></i>Manage Student</a>
