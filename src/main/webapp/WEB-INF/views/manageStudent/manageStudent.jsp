@@ -66,7 +66,7 @@
 			</nav>
 			
 			
-		<h1>Student List this course</h1>
+		<h1>Students in course</h1>
 			<hr />
 			<table class="table table-striped table-bordered">
 				
@@ -74,7 +74,7 @@
 						<td>Student Id</td>
 						<td>Student Username</td>
 						<td>Student Email</td>
-
+						<td>Delete</td>
 					</tr>
 					
 					<c:forEach var="studentInCourse" items="${studentsInCourse}">
@@ -82,14 +82,14 @@
 							<td>${studentInCourse.id}</td>
 							<td>${studentInCourse.username}</td>
 							<td>${studentInCourse.email}</td>
-
+							<td><A HREF="${pageContext.request.contextPath}/manageStudent/deleteStudent?username=${studentInCourse.username}&courseId=${courseId}">Delete</A></td>
 						</tr>
 					</c:forEach>
 					
 				</table>
 				
 				
-				<h1>Student List</h1>
+				<h1>Students not in course</h1>
 			<hr />
 				
 <table class="table table-striped table-bordered">

@@ -89,7 +89,7 @@ public class CourseController {
 	
 	@GetMapping("/manageStudent")
 	public String manageStudent(@RequestParam("id") int id, HttpSession session, Model model, HttpServletRequest request) {
-		List<User_riphumi> students = courseDAOImpl.getAllStudents();
+		List<User_riphumi> students = courseDAOImpl.getStudentsNotInCourse(id);
 		model.addAttribute("students", students);
 		
 		List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(id);
@@ -109,7 +109,24 @@ public class CourseController {
 		courseDAOImpl.insertStudentToCourse(courseId, username);
 		
 		
-			List<User_riphumi> students = courseDAOImpl.getAllStudents();
+			List<User_riphumi> students = courseDAOImpl.getStudentsNotInCourse(courseId);
+			model.addAttribute("students", students);
+			
+			List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(courseId);
+			model.addAttribute("studentsInCourse", studentsInCourse);
+			
+			model.addAttribute("courseId", courseId);
+				
+			return "manageStudent/manageStudent";
+		
+		
+	}
+	
+	
+	@GetMapping("/manageStudent/deleteStudent")
+	public String deleteStudent(@RequestParam("username") String username, @RequestParam("courseId") int courseId, Model model) {
+		courseDAOImpl.deleteStudentFromCourse(courseId, username);
+			List<User_riphumi> students = courseDAOImpl.getStudentsNotInCourse(courseId);
 			model.addAttribute("students", students);
 			
 			List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(courseId);

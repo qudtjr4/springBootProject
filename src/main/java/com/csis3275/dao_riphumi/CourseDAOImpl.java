@@ -28,10 +28,11 @@ public class CourseDAOImpl {
 	private final String SQL_INSERT_COURSE_USER = "INSERT INTO course_user(courseID, username) values(?, ?)";
 	private final String SQL_GET_COURSE_BY_ID = "SELECT * FROM course WHERE courseID = ?";
 	private final String SQL_GET_STUDENT_BY_COURSE = "SELECT * FROM users u INNER JOIN course_user c ON u.username = c.username WHERE u.typeId = 1 AND c.courseId = ?";
-	private final String SQL_GET_STUDENT_NOT_IN_COURSE = "SELECT * FROM users u LEFT JOIN course_user c ON u.username = c.username WHERE u.typeId = 1 AND c.courseId != ?";
+	private final String SQL_GET_STUDENT_NOT_IN_COURSE = "SELECT * FROM users u WHERE u.username NOT IN (SELECT c.username FROM course_user c WHERE c.courseId = ?) AND u.typeId = 1";
 	private final String SQL_GET_COURSES_BY_USER  = "SELECT c.courseID, c.courseName, c.courseShortName, c.startDate, c.endDate, c.folderID "
 			+ "FROM course c INNER JOIN course_user cu on c.courseID = cu.courseID WHERE cu.username = ?";
 	private final String SQL_GET_ALL_STUDENT = "SELECT * FROM users WHERE typeId = 1";
+	private final String SQL_DELETE_STUDENT_FROM_COURSE = "DELETE FROM course_user WHERE courseId = ? AND username = ?";
 
 	@Autowired
 	public CourseDAOImpl(DataSource dataSource) {
@@ -70,5 +71,8 @@ public class CourseDAOImpl {
 	
 	public List<User_riphumi> getStudentsNotInCourse(int courseId){
 		return jdbcTemplate.query(SQL_GET_STUDENT_NOT_IN_COURSE, new Object[] { courseId }, new UserMapper_riphumi());
+	}
+	public boolean deleteStudentFromCourse(int courseId, String username) {
+		return jdbcTemplate.update(SQL_DELETE_STUDENT_FROM_COURSE, courseId, username) > 0;
 	}
 }
