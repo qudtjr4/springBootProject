@@ -28,6 +28,7 @@ import com.csis3275.model_riphumi.File_riphumi;
 import com.csis3275.model_riphumi.Folder_riphumi;
 import com.csis3275.model_riphumi.User_riphumi;
 
+
 @Controller
 public class CourseController {
 	@Autowired
@@ -86,34 +87,38 @@ public class CourseController {
 		}
 	}
 	
-	@GetMapping("manageStudent")
-	public String course(HttpSession session, Model model, HttpServletRequest request) {
+	@GetMapping("/manageStudent")
+	public String manageStudent(@RequestParam("id") int id, HttpSession session, Model model, HttpServletRequest request) {
 		List<User_riphumi> students = courseDAOImpl.getAllStudents();
 		model.addAttribute("students", students);
+		
+		List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(id);
+		model.addAttribute("studentsInCourse", studentsInCourse);
+		
+		model.addAttribute("courseId", id);
+
 		
 		return "manageStudent/manageStudent";
 	}
 	
-	@RequestMapping("/manageStudent/searchEmail")
-	@ResponseBody
-	public Object[] searchEmail(@RequestParam(value = "term", required = false, defaultValue = "")String term) {
-		System.out.println(term);
-		List<String> result = new ArrayList<String>();
-		
-		List<User_riphumi> allStudents = courseDAOImpl.getAllStudents();
-		for(User_riphumi student : allStudents) {
-			if(student.getEmail().contains(term)) {
-				result.add(student.getEmail());
-			}
-		}	
-		
-		return result.toArray();
-	}
 	
-	@PostMapping("/manageStudent/addStudent")
-	public String addStudent(@RequestParam("email")String email, Model model) {
-		User_riphumi user = userDAOImpl.getUserByEmail(email);
+	@GetMapping("/manageStudent/addStudent")
+	public String addStudent(@RequestParam("username") String username, @RequestParam("courseId") int courseId, Model model) {
+		System.out.println(username);
+		System.out.println(courseId);
+		courseDAOImpl.insertStudentToCourse(courseId, username);
 		
-		return "";
+		
+			List<User_riphumi> students = courseDAOImpl.getAllStudents();
+			model.addAttribute("students", students);
+			
+			List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(courseId);
+			model.addAttribute("studentsInCourse", studentsInCourse);
+			
+			model.addAttribute("courseId", courseId);
+				
+			return "manageStudent/manageStudent";
+		
+		
 	}
 }

@@ -15,11 +15,11 @@
 <title>MOSS - Management Of School System</title>
 
 <!-- Bootstrap CSS CDN -->
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="../resources/css/main.css">
 
-<link rel="stylesheet" href="resources/css/calendar.css">
+<link rel="stylesheet" href="../resources/css/calendar.css">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -35,16 +35,6 @@
 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$('#search').autocomplete({
-			source: '${pageContext.request.contextPath}/manageStudent/searchEmail',
-			
-		});
-
-	});
-	</script>
 	
 </head>
 
@@ -69,37 +59,66 @@
 					</div>
 					<div class="col-3">
 						<div class="float-right">
-							<a href="${pageContext.request.contextPath}/addCourse"><i
-								type="button" class="fas fa-plus"></i> Add Course</a>
+						
 						</div>
 					</div>
 				</div>
 			</nav>
+			
+			
+		<h1>Student List this course</h1>
+			<hr />
+			<table class="table table-striped table-bordered">
+				
+					<tr>
+						<td>Student Id</td>
+						<td>Student Username</td>
+						<td>Student Email</td>
+						<td>Delete</td>
+					</tr>
+					
+					<c:forEach var="studentInCourse" items="${studentsInCourse}">
+						<tr>
+							<td>${studentInCourse.id}</td>
+							<td>${studentInCourse.username}</td>
+							<td>${studentInCourse.email}</td>
+							<td><A HREF="${pageContext.request.contextPath}/manageStudent/addStudent?username=${studentInCourse.username}&courseId=${courseId}">Add</A></td>
+						</tr>
+					</c:forEach>
+					
+				</table>
+				
+				
+				<h1>Student List</h1>
+			<hr />
+				
+<table class="table table-striped table-bordered">
+				
+					<tr>
+						<td>Student Id</td>
+						<td>Student Username</td>
+						<td>Student Email</td>
+						<td>Add</td>
+					</tr>
+					<c:forEach var="student" items="${students}">
+						<tr>
+							<td>${student.id}</td>
+							<td>${student.username}</td>
+							<td>${student.email}</td>
+							<td><A HREF="${pageContext.request.contextPath}/manageStudent/addStudent?username=${student.username}&courseId=${courseId}">Add</A></td>
+						</tr>
+					</c:forEach>
 
-			<div class="row justify-content-center">
-				<div class="col-8">
-					<form:form method="post" action="${pageContext.request.contextPath}/manageStudent/addStudent">
-						<h5>Search Student</h5>
-						<form:input class="form-control" type="text" id="search" path="email"/>
-						<p class="text-center pt-3">
-							<input type="submit" class="btn btn-primary" value="Add">
-						</p>
-					</form:form>
-
-				</div>
-			</div>
-
-
-
-
+				</table>
 
 		</div>
 	</div>
 
 
-
-
-	
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
 	<!-- Popper.JS -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"

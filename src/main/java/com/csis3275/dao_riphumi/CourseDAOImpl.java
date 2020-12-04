@@ -27,6 +27,7 @@ public class CourseDAOImpl {
 	private final String SQL_INSERT_COURSE = "INSERT INTO course(courseID, courseName, courseShortName, startDate, endDate, folderID) values(?, ?, ?, ?, ?, ?)";
 	private final String SQL_INSERT_COURSE_USER = "INSERT INTO course_user(courseID, username) values(?, ?)";
 	private final String SQL_GET_COURSE_BY_ID = "SELECT * FROM course WHERE courseID = ?";
+	private final String SQL_GET_STUDENT_BY_COURSE = "SELECT * FROM users u INNER JOIN course_user c ON u.username = c.username WHERE u.typeId = 1 AND c.courseId = ?";
 	private final String SQL_GET_COURSES_BY_USER  = "SELECT c.courseID, c.courseName, c.courseShortName, c.startDate, c.endDate, c.folderID "
 			+ "FROM course c INNER JOIN course_user cu on c.courseID = cu.courseID WHERE cu.username = ?";
 	private final String SQL_GET_ALL_STUDENT = "SELECT * FROM users WHERE typeId = 1";
@@ -53,7 +54,18 @@ public class CourseDAOImpl {
 		return jdbcTemplate.query(SQL_GET_ALL_STUDENT, new UserMapper_riphumi());
 	}
 	
+	public boolean insertStudentToCourse(int courseId, String username) {
+		return jdbcTemplate.update(SQL_INSERT_COURSE_USER, courseId, username) > 0;
+	}
+	
 	public boolean insertStudent(Course course, User_riphumi user) {
 		return jdbcTemplate.update(SQL_INSERT_COURSE_USER, course.getCourseID(), user.getUsername()) > 0;
+	}
+	
+	
+	public List<User_riphumi> getStudentsByCourse(int courseId){
+		return jdbcTemplate.query(SQL_GET_STUDENT_BY_COURSE, new Object[] { courseId }, new UserMapper_riphumi());
+		
+		
 	}
 }

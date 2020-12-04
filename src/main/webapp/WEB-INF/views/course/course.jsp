@@ -88,7 +88,6 @@
 		</div>
 
 	</div>
-	</div>
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
