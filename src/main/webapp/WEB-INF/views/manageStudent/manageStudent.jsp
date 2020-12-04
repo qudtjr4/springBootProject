@@ -74,7 +74,7 @@
 						<td>Student Id</td>
 						<td>Student Username</td>
 						<td>Student Email</td>
-						<td>Delete</td>
+
 					</tr>
 					
 					<c:forEach var="studentInCourse" items="${studentsInCourse}">
@@ -82,7 +82,7 @@
 							<td>${studentInCourse.id}</td>
 							<td>${studentInCourse.username}</td>
 							<td>${studentInCourse.email}</td>
-							<td><A HREF="${pageContext.request.contextPath}/manageStudent/addStudent?username=${studentInCourse.username}&courseId=${courseId}">Add</A></td>
+
 						</tr>
 					</c:forEach>
 					
