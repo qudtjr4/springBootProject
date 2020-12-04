@@ -39,23 +39,35 @@ public class AddCourseTest {
 	    driver.quit();
 	  }
 	@Test
-	public void addCourseTest() {
+	public void addCourseTest() throws InterruptedException {
 		driver.get("http://localhost:8080/login");
-		driver.manage().window().setSize(new Dimension(1282, 768));
+		driver.manage().window().setSize(new Dimension(1600, 900));
 		driver.findElement(By.id("id")).click();
 	    driver.findElement(By.id("id")).sendKeys("test");
+	    Thread.sleep(1000);
 		driver.findElement(By.id("password")).click();
 		driver.findElement(By.id("password")).sendKeys("123");
+		Thread.sleep(1000);
 		driver.findElement(By.cssSelector(".btn")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.linkText("Add Course")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.id("courseName")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.id("courseName")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.id("courseName")).sendKeys("Course Test");
+		Thread.sleep(1000);
 		driver.findElement(By.id("courseShortName")).sendKeys("CSIS 1100");
+		Thread.sleep(1000);
 		driver.findElement(By.id("startDate")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.id("startDate")).sendKeys("2020-11-29");
+		Thread.sleep(1000);
 		driver.findElement(By.id("endDate")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.id("endDate")).sendKeys("2020-12-16");
+		Thread.sleep(1000);
 		driver.findElement(By.cssSelector(".btn-primary")).click();
 		
 	}
