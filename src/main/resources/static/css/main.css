@@ -176,10 +176,25 @@ a.article:hover {
 	background-color: transparent;
 	border: none;
 	transition: transform .2s;
+	text-align: center
 }
 
 .card:hover{
 	transform: scale(1.1);
+}
+
+.deleteElement{
+	text-align: right;
+}
+
+.deleteElement:hover{
+	color: gray;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#folderContainer{
+	padding: 2%;
 }
 
 .course-short-name{

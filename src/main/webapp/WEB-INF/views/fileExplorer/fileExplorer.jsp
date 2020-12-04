@@ -80,9 +80,9 @@ function success(data){
 	$("#folderContainer").empty();
 	$.each(data.folderList, function(index, value){
 		$("#folderContainer").append(
-				'<div class="col-sm-3">'
+				'<div class="col-sm-2">'
 						+'<div class="card ">'
-							+'<div onClick="openDeleteFolderDialog(\'Do you want to delete '+value.name+' folder?\', '+value.id+')">X</div>'
+							+'<span aria-hidden="true" class="deleteElement" onClick="openDeleteFolderDialog(\'Do you want to delete '+value.name+' folder?\', '+value.id+')">&times;</span>'
 							+'<a class="nav-link"'
 							+'href="${pageContext.request.contextPath}/fileExplorer?id='+value.id+'">'
 								+'<div>'
@@ -103,7 +103,7 @@ function success(data){
 		$("#folderContainer").append(
 				'<div class="col-sm-2">'
 						+'<div class="card " style="width: 10rem">'
-							+'<div onClick="openDeleteFileDialog(\'Do you want to delete '+value.name+' file?\', '+value.id+')">X</div>'
+							+'<span aria-hidden="true" class="deleteElement" onClick="openDeleteFileDialog(\'Do you want to delete '+value.name+' file?\', '+value.id+')">&times;</span>'
 							+'</a>'	
 							+'<a class="nav-link"'
 							+'href="${pageContext.request.contextPath}/downloadFile?id='+value.id+'">'
