@@ -1,13 +1,16 @@
 package com.csis3275.dao_riphumi;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -44,15 +47,19 @@ public class FileDAOImpl_riphumi {
 	
 	public int createFile(File_riphumi file) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbcTemplate.update(connection->{
-			PreparedStatement ps = connection.prepareStatement(SQL_INSERT);
-			ps.setLong(1, file.getFolderId());
-			ps.setString(2, file.getLocation());
-			ps.setString(3, file.getName());
-			ps.setDate(4, (Date) file.getLastUpdate());
-			return ps;
-		}, keyHolder);
-		
+		jdbcTemplate.update(
+		    new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		            PreparedStatement ps =
+		                connection.prepareStatement(SQL_INSERT, new String[] {"id"});
+		            ps.setLong(1, file.getFolderId());
+					ps.setString(2, file.getLocation());
+					ps.setString(3, file.getName());
+					ps.setDate(4, new java.sql.Date(file.getLastUpdate().getTime()));
+		            return ps;
+		        }
+		    },
+		    keyHolder);
 		return (int) keyHolder.getKey();
 	}
 	public List<File_riphumi> getAllChildren(int folderId) {
