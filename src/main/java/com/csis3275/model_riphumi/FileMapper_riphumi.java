@@ -15,7 +15,7 @@ public class FileMapper_riphumi implements RowMapper<File_riphumi>{
 		file.setLocation(rs.getString("location"));
 		file.setName(rs.getString("name"));
 		file.setLastUpdate(rs.getDate("createDate"));
-		return null;
+		return file;
 	}
 
 }

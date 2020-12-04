@@ -43,12 +43,6 @@ public class MainController_mki_39 {
 	UserDAOImpl_riphumi userDaoImpl;
 	@Autowired
 	CourseDAOImpl courseDAOImpl;
-	@Autowired
-	FolderDAOImpl_riphumi folderDaoImpl;
-	
-	private Folder_riphumi root;
-	private int currentFolderId;
-	public HashMap<Integer, String> path;
 	
 //	@Resource(name = "files")
 //	private String files; 
@@ -110,114 +104,7 @@ public class MainController_mki_39 {
 		return "redirect:/";
 	}
 
-	@GetMapping("fileExplorer")
-	public String fileExplorer(@RequestParam("id") int id, Model model) {
-		Folder_riphumi tree = folderDaoImpl.getEntireFolder(id);
-		if (tree.getParentId() == 0) {
-			root = tree;
-		}
-		currentFolderId = id;
-		model.addAttribute("folders", tree);
-		model.addAttribute("file", new File_riphumi());
-		model.addAttribute("path", findPath(root, currentFolderId));
-		return "fileExplorer";
-	}
 	
-	@GetMapping("findFolder")
-	public ResponseEntity<Folder_riphumi> getCurrentFolder(@RequestParam("id") int id, Model model){
-		Folder_riphumi tree = folderDaoImpl.getEntireFolder(id);
-		model.addAttribute("folders", tree);
-		model.addAttribute("file", new File_riphumi());
-		model.addAttribute("path", findPath(root, currentFolderId));
-//		ObjectMapper mapper = new ObjectMapper();
-//		String json = mapper.writeValueAsString(tree);
-		return new ResponseEntity<Folder_riphumi>(tree, HttpStatus.OK);
-	}
-	
-	@SuppressWarnings("null")
-	public Map<Integer, String> findPath(Folder_riphumi folder, int id){
-		Map<Integer, String> temp = new HashMap<Integer, String>();
-		if (folder.getId() == id) {
-			temp.put(folder.getId(), folder.getName());
-			return temp;
-		}
-
-		if (!folder.getFolderList().isEmpty()) {
-			for (Folder_riphumi f : folder.getFolderList()) {
-				if (f.getId() != id) {
-					Map<Integer, String> temp2 = new HashMap<Integer, String>();
-					temp2 = findPath(f, id);
-					if (!temp2.isEmpty()) {
-						temp.put(folder.getId(), folder.getName());
-						temp.putAll(temp2);
-					}
-				} else {
-					temp.put(f.getId(), f.getName());
-					temp.put(folder.getId(), folder.getName());
-				}
-			}
-		} 
-		return temp;
-	}
-
-	@PostMapping("fileExplorer")
-	public Folder_riphumi addFolder(@RequestBody Folder_riphumi folder, Model model, HttpServletRequest request) {
-		folder.setCreateDate(Calendar.getInstance().getTime());
-		folderDaoImpl.createFolder(folder);
-		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
-		root = folderDaoImpl.getEntireFolder(root.getId());
-		model.addAttribute("folders", father);
-		model.addAttribute("file", new File_riphumi());
-		return father;
-	}
-	
-	@PostMapping("fileExplorer/AddFile")
-	public String addFile(@ModelAttribute("file") File_riphumi file,Model model,@RequestParam(value="file1", required = false) MultipartFile mf) {
-//		folder.setCreateDate(format.format(Calendar.getInstance().getTime()));
-//		folderDaoImpl.createFolder(folder);
-		Folder_riphumi father = folderDaoImpl.getEntireFolder(currentFolderId);
-	
-		try {
-			String savedName = uploadFile(mf);
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//model.addAttribute("savedName", savedName);
-		
-		model.addAttribute("folders", father);
-		
-		return "fileExplorer";
-	}
-	private String uploadFile(MultipartFile mf) 
-			throws Exception {
-		UUID uuid = UUID.randomUUID();
-		String savedName = uuid.toString() + "_" + mf.getOriginalFilename();
-		
-		String path = "src/main/resources/files/"+root.getId()+"_"+root.getName();
-		
-		Path p = Paths.get(path);
-		File target  = new File(path);
-		target.setReadable(true);
-		target.setWritable(true);
-		
-		
-		if (target.getAbsoluteFile().exists()) {
-			//Provided by Springz
-			mf.transferTo(target);
-//			FileCopyUtils.copy(fileData, target);
-		}else {
-			target.mkdir();
-			mf.transferTo(target);
-			//Provided by Springz
-//			FileCopyUtils.copy(fileData, target);
-		}
-		
-		
-		
-		return savedName;
-	}
 	
 	
 	

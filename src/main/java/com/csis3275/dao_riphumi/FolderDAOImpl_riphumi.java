@@ -3,6 +3,7 @@ package com.csis3275.dao_riphumi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import com.csis3275.model_riphumi.FileMapper_riphumi;
+import com.csis3275.model_riphumi.File_riphumi;
 import com.csis3275.model_riphumi.FolderMapper_riphumi;
 import com.csis3275.model_riphumi.Folder_riphumi;
 
@@ -24,6 +27,7 @@ public class FolderDAOImpl_riphumi {
 	private final String SQL_UPDATE = "UPDATE folders set parentId= ?, name  = ?, createDate = ? WHERE id = ?";
 	private final String SQL_INSERT = "insert into folders(parentId, name, createDate) values(?, ?, ?)";
 	private final String SQL_GET_ALL = "SELECT * FROM folders WHERE parentId = ?";
+	private final String SQL_GET_ALL_FILES = "SELECT * FROM files WHERE folderId = ?";
 	
 	
 	@Autowired
@@ -68,6 +72,10 @@ public class FolderDAOImpl_riphumi {
 		return jdbcTemplate.query(SQL_GET_ALL, new Object[] {parentId}, new FolderMapper_riphumi());
 	}
 	
+	public List<File_riphumi> getAllFileChildren(int folderId) {
+		return jdbcTemplate.query(SQL_GET_ALL_FILES, new Object[] {folderId}, new FileMapper_riphumi());
+	}
+	
 	public boolean hasChildren(int id) {
 		return getAllChildren(id).isEmpty();
 	}
@@ -80,6 +88,8 @@ public class FolderDAOImpl_riphumi {
 				folder.addFolder(getEntireFolder(child.getId()));
 			}
 		}
+		List<File_riphumi> fileList = getAllFileChildren(id);
+		folder.setFileList((ArrayList<File_riphumi>) fileList);
 		return folder;
 	}
 }
