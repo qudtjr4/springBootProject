@@ -8,16 +8,18 @@
 <html>
 
 <head>
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Add Course</title>
+<title>MOSS - Management Of School System</title>
 
 <!-- Bootstrap CSS CDN -->
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="../resources/css/main.css">
+
+<link rel="stylesheet" href="../resources/css/calendar.css">
 
 <!-- Font Awesome JS -->
 <script defer
@@ -28,74 +30,90 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 </head>
 
 <body>
 	<div class="wrapper">
 		<!-- Sidebar  -->
 		<jsp:include page="../sideBar.jsp"></jsp:include>
-		
+
 		<!-- Page Content  -->
 		<div id="content">
-
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-
-					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i>
-					</button>
-
-					<h2 class="col-12 ml-5 mt-2">Add Course</h2>
-
+					<div class="row">
+						<div class="col-1">
+							<button type="button" id="sidebarCollapse" class="btn btn-info">
+								<i class="fas fa-align-left"></i>
+							</button>
+						</div>
+					</div>
+					<div class="col-8">
+						<h2 class="col-10 mt-2">Home</h2>
+					</div>
+					<div class="col-3">
+						<div class="float-right">
+						
+						</div>
+					</div>
 				</div>
 			</nav>
-			<div class="add-course">
-				<h2>Course info</h2>
-				</br>
-				<form:form class="form-horizontal" role="form"
-					action="${pageContext.request.contextPath}/addCourse" method="post"
-					modelAttribute="course">
-					<div class="form-group">
-						<label class="col-md-3 control-label">Course Name:</label>
-						<div class="">
-							<form:input class="form-control" type="text" path="courseName"
-								required="required" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Course Short Name:</label>
-						<div class="">
-							<form:input class="form-control" type="text"
-								path="courseShortName" required="required" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="date" class="col-md-3 control-label">Start
-							Date</label>
-						<div class="">
-							<form:input type="date" path="startDate" cssClass="form-control"
-								required="required" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="date" class="col-md-3 control-label">End Date</label>
-						<div class="">
-							<form:input type="date" path="endDate" cssClass="form-control"
-								required="required" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label"></label>
-						<div class="">
-							<form:button type="submit" class="btn btn-primary">Add Course</form:button>
-							<span></span> <input type="reset" class="btn btn-default"
-								value="Cancel">
-						</div>
-					</div>
-				</form:form>
-			</div>
+			
+			
+		<h1>Student List this course</h1>
+			<hr />
+			<table class="table table-striped table-bordered">
+				
+					<tr>
+						<td>Student Id</td>
+						<td>Student Username</td>
+						<td>Student Email</td>
+
+					</tr>
+					
+					<c:forEach var="studentInCourse" items="${studentsInCourse}">
+						<tr>
+							<td>${studentInCourse.id}</td>
+							<td>${studentInCourse.username}</td>
+							<td>${studentInCourse.email}</td>
+
+						</tr>
+					</c:forEach>
+					
+				</table>
+				
+				
+				<h1>Student List</h1>
+			<hr />
+				
+<table class="table table-striped table-bordered">
+				
+					<tr>
+						<td>Student Id</td>
+						<td>Student Username</td>
+						<td>Student Email</td>
+						<td>Add</td>
+					</tr>
+					<c:forEach var="student" items="${students}">
+						<tr>
+							<td>${student.id}</td>
+							<td>${student.username}</td>
+							<td>${student.email}</td>
+							<td><A HREF="${pageContext.request.contextPath}/manageStudent/addStudent?username=${student.username}&courseId=${courseId}">Add</A></td>
+						</tr>
+					</c:forEach>
+
+				</table>
+
 		</div>
 	</div>
+
 
 	<!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -113,6 +131,7 @@
 		crossorigin="anonymous"></script>
 
 	<script src="resources/js/main.js" type="text/javascript"></script>
+	
 </body>
 
 </html>

@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="col-8">
-						<h2 class="col-10 mt-2">Home</h2>
+						<h2 class="col-10 mt-2">Manage Students</h2>
 					</div>
 					<div class="col-3">
 					<div class="float-right">

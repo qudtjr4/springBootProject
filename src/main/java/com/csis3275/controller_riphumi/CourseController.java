@@ -17,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.csis3275.dao_riphumi.CourseDAOImpl;
 import com.csis3275.dao_riphumi.UserDAOImpl_riphumi;
@@ -24,6 +27,7 @@ import com.csis3275.model_riphumi.Course;
 import com.csis3275.model_riphumi.File_riphumi;
 import com.csis3275.model_riphumi.Folder_riphumi;
 import com.csis3275.model_riphumi.User_riphumi;
+
 
 @Controller
 public class CourseController {
@@ -83,9 +87,38 @@ public class CourseController {
 		}
 	}
 	
-	@GetMapping("course")
-	public String course(HttpSession session, Model model, HttpServletRequest request) {
+	@GetMapping("/manageStudent")
+	public String manageStudent(@RequestParam("id") int id, HttpSession session, Model model, HttpServletRequest request) {
+		List<User_riphumi> students = courseDAOImpl.getAllStudents();
+		model.addAttribute("students", students);
 		
-		return "course/course";
+		List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(id);
+		model.addAttribute("studentsInCourse", studentsInCourse);
+		
+		model.addAttribute("courseId", id);
+
+		
+		return "manageStudent/manageStudent";
+	}
+	
+	
+	@GetMapping("/manageStudent/addStudent")
+	public String addStudent(@RequestParam("username") String username, @RequestParam("courseId") int courseId, Model model) {
+		System.out.println(username);
+		System.out.println(courseId);
+		courseDAOImpl.insertStudentToCourse(courseId, username);
+		
+		
+			List<User_riphumi> students = courseDAOImpl.getAllStudents();
+			model.addAttribute("students", students);
+			
+			List<User_riphumi> studentsInCourse = courseDAOImpl.getStudentsByCourse(courseId);
+			model.addAttribute("studentsInCourse", studentsInCourse);
+			
+			model.addAttribute("courseId", courseId);
+				
+			return "manageStudent/manageStudent";
+		
+		
 	}
 }
