@@ -13,3 +13,8 @@
 ## 0.2 Release
 	-Risk Register
 	
+## 0.3 Release
+	- File Uploading
+	- Student Management
+	- Folder and File delete
+	
