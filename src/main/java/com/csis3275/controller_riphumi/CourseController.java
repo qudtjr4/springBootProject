@@ -75,7 +75,7 @@ public class CourseController {
 			
 			//Create a course folder
 			Folder_riphumi courseFolder = new Folder_riphumi();
-			courseFolder.setFatherId(0);
+			courseFolder.setParentId(0);
 			courseFolder.setName(createdCourse.getCourseName());
 			courseFolder.setCreateDate(new Date());
 			

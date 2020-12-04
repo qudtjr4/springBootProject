@@ -1,12 +1,14 @@
 package com.csis3275.model_riphumi;
 
+import java.util.Date;
+
 public class File_riphumi {
 
 	private int id;
 	private int folderId;
 	private String location;
 	private String name;
-	private String lastUpdate;
+	private Date lastUpdate;
 	public int getId() {
 		return id;
 	}
@@ -31,10 +33,10 @@ public class File_riphumi {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-	public void setLastUpdate(String lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 	

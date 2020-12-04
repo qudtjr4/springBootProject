@@ -3,7 +3,6 @@ package com.csis3275.dao_riphumi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +40,11 @@ public class FolderDAOImpl_riphumi {
 	}
 	
 	public boolean updateFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_UPDATE, folder.getFatherId(), folder.getName(), folder.getCreateDate()) > 0;
+		return jdbcTemplate.update(SQL_UPDATE, folder.getParentId(), folder.getName(), folder.getCreateDate()) > 0;
 	}
 	
 	public boolean createFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_INSERT, folder.getFatherId(),folder.getName(), folder.getCreateDate()) > 0;
+		return jdbcTemplate.update(SQL_INSERT, folder.getParentId(),folder.getName(), folder.getCreateDate()) > 0;
 	}
 	
 	public int insertFolderAndGetKey(Folder_riphumi folder) {
@@ -55,7 +54,7 @@ public class FolderDAOImpl_riphumi {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 		            PreparedStatement ps =
 		                connection.prepareStatement(SQL_INSERT, new String[] {"id"});
-		            ps.setInt(1, folder.getFatherId()); 
+		            ps.setInt(1, folder.getParentId()); 
 		            ps.setString(2, folder.getName());
 		            ps.setDate(3, new java.sql.Date(folder.getCreateDate().getTime()));
 		            return ps;

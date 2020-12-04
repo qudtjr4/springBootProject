@@ -27,12 +27,16 @@ public class Folder_riphumi {
 		this.id = id;
 	}
 
-	public int getFatherId() {
+	public int getParentId() {
 		return parentId;
 	}
 
-	public void setFatherId(int parentId) {
+	public void setParentId(int parentId) {
 		this.parentId = parentId;
+	}
+	
+	public void setParentId(String parentId) {
+		this.parentId = Integer.parseInt(parentId);
 	}
 
 	public String getName() {

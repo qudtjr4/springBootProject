@@ -66,7 +66,7 @@
 					<c:forEach var="course" items="${courses}">
 						<div class="col-3 mb-3">
 							<a
-								href="${pageContext.request.contextPath}/fileExplorer?id= ${course.folderID}">
+								href="${pageContext.request.contextPath}/fileExplorer?id=${course.folderID}">
 								<div class="card">
 									<div class="course-container">
 										<img class="img-fluid" src="resources/img/bookdrawing.png"

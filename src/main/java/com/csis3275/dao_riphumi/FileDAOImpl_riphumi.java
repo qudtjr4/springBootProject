@@ -1,16 +1,19 @@
 package com.csis3275.dao_riphumi;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.csis3275.model_riphumi.FileMapper_riphumi;
 import com.csis3275.model_riphumi.File_riphumi;
-import com.csis3275.model_riphumi.Folder_riphumi;
 
 @Component
 public class FileDAOImpl_riphumi {
@@ -27,22 +30,31 @@ public class FileDAOImpl_riphumi {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public File_riphumi getFolderById(int id) {
+	public File_riphumi getFileById(int id) {
 		return jdbcTemplate.queryForObject(SQL_FIND, new Object[] { id }, new FileMapper_riphumi());
 	}
 	
-	public boolean deleteFolder(int id) {
+	public boolean deleteFile(int id) {
 		return jdbcTemplate.update(SQL_DELETE, id) > 0;
 	}
 	
-	public boolean updateFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_UPDATE, folder.getFatherId(), folder.getName(), folder.getCreateDate()) > 0;
+	public boolean updateFile(File_riphumi file) {
+		return jdbcTemplate.update(SQL_UPDATE, file.getFolderId(), file.getLocation(), file.getName(), file.getLastUpdate()) > 0;
 	}
 	
-	public boolean createFolder(Folder_riphumi folder) {
-		return jdbcTemplate.update(SQL_INSERT, folder.getFatherId(), folder.getName(), folder.getCreateDate()) > 0;
+	public int createFile(File_riphumi file) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(connection->{
+			PreparedStatement ps = connection.prepareStatement(SQL_INSERT);
+			ps.setLong(1, file.getFolderId());
+			ps.setString(2, file.getLocation());
+			ps.setString(3, file.getName());
+			ps.setDate(4, (Date) file.getLastUpdate());
+			return ps;
+		}, keyHolder);
+		
+		return (int) keyHolder.getKey();
 	}
-	
 	public List<File_riphumi> getAllChildren(int folderId) {
 		return jdbcTemplate.query(SQL_GET_ALL, new Object[] {folderId}, new FileMapper_riphumi());
 	}
