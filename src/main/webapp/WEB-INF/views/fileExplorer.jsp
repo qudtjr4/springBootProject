@@ -13,6 +13,18 @@
 <script src="/resources/js/jquery-1.11.1.min.js"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+	
+	
 <script type="text/javascript">
 var root;
 
@@ -78,41 +90,10 @@ function success(data){
 </head>
 <body>
 	<div class="wrapper">
+	
 		<!-- Sidebar  -->
 		<%@include file="sideBar.jsp"%>
 
-		<!-- Page Content  -->
-		<div id="content">
-
-			<div class="collapse navbar-collapse" id="navbarContent">
-				<ul class="navbar-nav nav-justified ">
-					<li class="nav-item dropdown navbar-right"><a
-						class="nav-link dropdown-toggle" id="navbarInstructor"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Menu Instructor</a>
-						<div class="dropdown-menu" aria-labelledby="navbarInstructor">
-							<a class="dropdown-item"
-								href="${pageContext.request.contextPath}/editProfile">Edit
-								Profile</a> <a class="dropdown-item" href="#">Edit member List</a> <a
-								class="dropdown-item" href="#">Create new folder</a>
-						</div></li>
-					<li class="nav-item dropdown navbar-right"><a
-						class="nav-link dropdown-toggle" id="navbarStudent" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Menu Student</a>
-						<div class="dropdown-menu" aria-labelledby="navbarStudent">
-							<a class="dropdown-item"
-								href="${pageContext.request.contextPath}/editProfile">Edit
-								Profile</a> <a class="dropdown-item" href="#">Leave room</a>
-						</div></li>
-					<li>
-						<button type="button" class="bt	n btn-dark navbar-btn bg-dark">
-							<a href="${pageContext.request.contextPath}/login/logout">Sign
-								out</a>
-						</button>
-					</li>
-				</ul>
-			</div>
 
 			<!-- Pop up, add new folder -->
 			<div class="modal fade" id="newFolder" tabindex="-1" role="dialog"
@@ -209,15 +190,13 @@ function success(data){
 				</div>
 			</div>
 
-
-			<div class="text-center mt-5">
+			<div id="manageStudent" class="text-center mt-5">
 				<a href="${pageContext.request.contextPath}/manageStudent?id=${folders.getId()}"><i
 					class="fas fa-plus"></i>Manage Student</a>
 			</div>
 
 		</div>
-	</div>
-
+	
 
 <!-- jQuery CDN - Slim version (=without AJAX) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
