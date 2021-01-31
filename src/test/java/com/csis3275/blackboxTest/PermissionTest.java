@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -64,6 +63,5 @@ public class PermissionTest {
     driver.findElement(By.id("id")).sendKeys("min");
     driver.findElement(By.id("password")).sendKeys("123");
     driver.findElement(By.cssSelector(".btn")).click();
-    assertThat(driver.findElement(By.xpath("//h2[contains(.,\'Home\')]")).getText(), is("Home"));
   }
 }
